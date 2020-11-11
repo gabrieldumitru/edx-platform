@@ -123,7 +123,7 @@ def _register_course_home_messages(request, course, user_access, course_start_da
                 sign_in_link=HTML(u'<a href="/login?next={current_url}">{sign_in_label}</a>').format(
                     sign_in_label=_('Sign in'),
                     current_url=urlquote_plus(request.path),
-                )#,
+                )#, 
                 #register_link=HTML(u'<a href="/register?next={current_url}">{register_label}</a>').format(
                 #    register_label=_('register'),
                 #    current_url=urlquote_plus(request.path),
