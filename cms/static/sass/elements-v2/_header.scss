@@ -30,6 +30,7 @@
 
   .wrapper-l {
     @include span(7);
+    margin-top: 25px;
   }
 
   .wrapper-r {
@@ -162,6 +163,7 @@
 .is-signedin {
   .wrapper-l {
     width: flex-grid(8, 12);
+    margin-top: 25px;
   }
 
   .wrapper-r {
