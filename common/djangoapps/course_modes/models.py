@@ -766,6 +766,8 @@ class CourseMode(models.Model):
         non-expired modes.
         If there is no mode found, will return the price of DEFAULT_MODE, which is 0
         """
+        modes = cls.modes_for_course(course_id)
+        
         for mode in modes:
             if mode.currency.lower() == currency.lower() and mode.min_price:
                 return mode.min_price
