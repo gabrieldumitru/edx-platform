@@ -233,24 +233,25 @@
           <li class="nav-item nav-account-user">
             <%include file="user_dropdown.html" args="online_help_token=online_help_token" />
           </li>
-        </ol>
-        <div class="nav-item hidden-mobile">
+        
+        <li class="nav-item">
           <a href="https://europa.eu/european-union/index_ro" target="_blank">
                   <img style="display: inline-block; width: 50px; height: 50px; margin: 0 15px;" src="${static.url('images/sigle/logo_ue_color.png')}">
           </a>
-        </div>
+        </li>
 
-        <div class="nav-item hidden-mobile">
+        <li class="nav-item">
                 <a href="http://www.gov.ro" target="_blank">
                         <img style="display: inline-block; width: 50px; height: 50px; margin: 0 15px;" src="${static.url('images/sigle/sigla_guv_coroana_albastru.png')}">
                 </a>
-        </div>
+        </li>
 
-        <div class="nav-item hidden-mobile">
+        <li class="nav-item">
                 <a href="http://www.fonduri-ue.ro/" target="_blank">
                         <img style="display: inline-block; width: 50px; height: 50px; margin: 0 15px;" src="${static.url('images/sigle/logo_is_color.png')}">
                 </a>
-        </div>
+              </li>
+      </ol>
       </nav>
 
     % else:
@@ -268,24 +269,25 @@
           <li class="nav-item nav-not-signedin-signin">
             <a class="action action-signin" href="${settings.LOGIN_URL}?next=${current_url}">${_("Sign In")}</a>
           </li>
-        </ol>
-        <div class="nav-item hidden-mobile">
+        
+        <li class="nav-item">
           <a href="https://europa.eu/european-union/index_ro" target="_blank">
                   <img style="display: inline-block; width: 50px; height: 50px; margin: 0 15px;" src="${static.url('images/sigle/logo_ue_color.png')}">
           </a>
-        </div>
+        </li>
 
-        <div class="nav-item hidden-mobile">
+        <li class="nav-item">
                 <a href="http://www.gov.ro" target="_blank">
                         <img style="display: inline-block; width: 50px; height: 50px; margin: 0 15px;" src="${static.url('images/sigle/sigla_guv_coroana_albastru.png')}">
                 </a>
-        </div>
+        </li>
 
-        <div class="nav-item hidden-mobile">
+        <li class="nav-item">
                 <a href="http://www.fonduri-ue.ro/" target="_blank">
                         <img style="display: inline-block; width: 50px; height: 50px; margin: 0 15px;" src="${static.url('images/sigle/logo_is_color.png')}">
                 </a>
-        </div>
+        </li>
+      </ol>
       </nav>
     % endif
     </div>
