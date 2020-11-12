@@ -9,7 +9,7 @@
 // studio - elements - global header
 // ====================
 
-.wrapper-header {
+.s {
   @extend %ui-depth3;
 
   position: relative;
@@ -271,11 +271,11 @@
 .is-signedin.course {
   .wrapper-header {
     .wrapper-l {
-      width: flex-grid(9, 12);
+      width: flex-grid(7, 12);
     }
 
     .wrapper-r {
-      width: flex-grid(3, 12);
+      width: flex-grid(5, 12);
     }
 
     .branding {
