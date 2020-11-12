@@ -112,7 +112,9 @@
       display: block;
 
       .brand-image {
-        max-height: ($baseline*2);
+        max-height: ($baseline*4);
+        max-width: 210px;
+        margin-top: 15px;
         display: block;
       }
     }
