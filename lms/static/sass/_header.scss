@@ -14,7 +14,7 @@
   background: theme-color("inverse");
   line-height: 1.5;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     position: inherit;
   }
 
@@ -65,7 +65,7 @@
       }
 
       // Hide the course header for smaller screen sizes
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         display: block;
       }
     }
@@ -84,7 +84,7 @@
     by the desktop styling
   */
   // Desktop styling
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     .nav-links {
       .nav-item {
         margin: 0 $baseline;
@@ -210,7 +210,7 @@
           background-color: theme-color("inverse");
           color: theme-color("secondary");
 
-          @include right(30px);
+          @include right(300px);
 
           top: 55px;
           z-index: 10;

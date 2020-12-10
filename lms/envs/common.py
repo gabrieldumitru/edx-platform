@@ -1190,7 +1190,7 @@ PRESS_EMAIL = 'press@example.com'
 FINANCE_EMAIL = ''
 
 # Platform mailing address
-CONTACT_MAILING_ADDRESS = 'SET-ME-PLEASE'
+CONTACT_MAILING_ADDRESS = 'uxisupport@bittnet.ro'
 
 # Account activation email sender address
 ACTIVATION_EMAIL_FROM_ADDRESS = ''

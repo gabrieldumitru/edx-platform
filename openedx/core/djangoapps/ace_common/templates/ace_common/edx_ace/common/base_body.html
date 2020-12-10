@@ -62,11 +62,11 @@
                     <tr>
                         <td width="70">
                             <a href="{% with_link_tracking homepage_url %}"><img
-                                    src="https://media.sailthru.com/595/1k1/8/o/599f355101b3f.png" width="70"
+                                    src="https://i.imgur.com/R15a1pb.png" width="70"
                                     height="30" alt="{% filter force_escape %}{% blocktrans %}Go to {{ platform_name }} Home Page{% endblocktrans %}{% endfilter %}"/></a>
                         </td>
                         <td align="right" style="text-align: {{ LANGUAGE_BIDI|yesno:"left,right" }};">
-                            <a class="login" href="{% with_link_tracking dashboard_url %}" style="color: #005686;">{%  trans "Sign In" %}</a>
+                            <a class="login" href="{% with_link_tracking dashboard_url %}" style="color:#08B4E1;">{%  trans "Sign In" %}</a>
                         </td>
                     </tr>
                 </table>
@@ -161,7 +161,7 @@
                         <td style="padding-bottom: 20px;">
                             {% for action_link_url, action_link_text in channel.action_links %}
                                 <p>
-                                    <a href="{{ action_link_url }}" style="color: #005686">
+                                    <a href="{{ action_link_url }}" style="color: #08B4E1">
                                         <font color="#005686"><b>{{ action_link_text }}</b></font>
                                     </a>
                                 </p>
