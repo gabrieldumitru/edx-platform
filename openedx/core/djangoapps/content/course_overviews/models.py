@@ -128,6 +128,15 @@ class CourseOverview(TimeStampedModel):
 
     history = HistoricalRecords()
 
+    def __init__(self, title, summary, icon_url, url):
+        self.lowest_passing_grade = None
+        self.display_name = title
+        self.max_student_enrollments_allowed = 999
+        self.short_description = summary
+        self.course_image_url = icon_url
+        self.catalog_visibility = 'both'
+        self.language = 'en'
+
     @classmethod
     def _create_or_update(cls, course):
         """
@@ -629,7 +638,26 @@ class CourseOverview(TimeStampedModel):
         # make sure the "publish" signal was emitted when the course was
         # created. For tests using CourseFactory, use emit_signals=True.
         course_overviews = CourseOverview.objects.all()
+        
+        # Add MS Learn courses to course overviews
 
+        res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
+        res_json = res.json()
+        modules = res_json.get('modules')
+        learning_paths = res_json.get('learningPaths')
+
+        for module in modules:
+            # Create course overview based on module 
+            course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
+            # Append it to course_overviews
+            course_overviews.append(course_overview)
+
+        for learning_path in learning_paths:
+            # Create course overview based on learning_path 
+            course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
+            # Append it to course_overviews
+            course_overviews.append(course_overview)
+            
         if orgs:
             # In rare cases, courses belonging to the same org may be accidentally assigned
             # an org code with a different casing (e.g., Harvardx as opposed to HarvardX).
