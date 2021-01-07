@@ -639,7 +639,7 @@ class CourseOverview(TimeStampedModel):
         # created. For tests using CourseFactory, use emit_signals=True.
         course_overviews = CourseOverview.objects.all()
         
-        # Add MS Learn courses to course overviews
+        # Add MS Learn courses to course overviews 
 
         res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
         res_json = res.json()
