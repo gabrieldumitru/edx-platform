@@ -6,6 +6,9 @@ Declaration of CourseOverview model
 import json
 import logging
 
+import requests
+from pprint import pformat
+
 import six
 from ccx_keys.locator import CCXLocator
 from config_models.models import ConfigurationModel
@@ -640,23 +643,28 @@ class CourseOverview(TimeStampedModel):
         course_overviews = CourseOverview.objects.all()
         
         # Add MS Learn courses to course overviews 
-
         res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
         res_json = res.json()
         modules = res_json.get('modules')
+        log.debug(u'MSLearn modules count: %d', len(modules))
         learning_paths = res_json.get('learningPaths')
+        log.debug(u'MSLearn learning paths count: %d', len(learning_paths))
 
+        log.debug('Modules:')
         for module in modules:
             # Create course overview based on module 
             course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
             # Append it to course_overviews
             course_overviews.append(course_overview)
+            log.debug(pformat(course_overview))
 
+        log.debug('Learning paths:')
         for learning_path in learning_paths:
             # Create course overview based on learning_path 
             course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
             # Append it to course_overviews
             course_overviews.append(course_overview)
+            log.debug(pformat(course_overview))
             
         if orgs:
             # In rare cases, courses belonging to the same org may be accidentally assigned
