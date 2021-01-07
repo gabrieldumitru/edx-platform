@@ -641,30 +641,6 @@ class CourseOverview(TimeStampedModel):
         # make sure the "publish" signal was emitted when the course was
         # created. For tests using CourseFactory, use emit_signals=True.
         course_overviews = CourseOverview.objects.all()
-        
-        # Add MS Learn courses to course overviews 
-        res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
-        res_json = res.json()
-        modules = res_json.get('modules')
-        log.debug(u'MSLearn modules count: %d', len(modules))
-        learning_paths = res_json.get('learningPaths')
-        log.debug(u'MSLearn learning paths count: %d', len(learning_paths))
-
-        log.debug('Modules:')
-        for module in modules:
-            # Create course overview based on module 
-            course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
-            # Append it to course_overviews
-            course_overviews.append(course_overview)
-            log.debug(pformat(course_overview))
-
-        log.debug('Learning paths:')
-        for learning_path in learning_paths:
-            # Create course overview based on learning_path 
-            course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
-            # Append it to course_overviews
-            course_overviews.append(course_overview)
-            log.debug(pformat(course_overview))
             
         if orgs:
             # In rare cases, courses belonging to the same org may be accidentally assigned
@@ -677,6 +653,45 @@ class CourseOverview(TimeStampedModel):
 
         if filter_:
             course_overviews = course_overviews.filter(**filter_)
+
+        # Add MS Learn courses to course overviews 
+        log.info('Sending request to MSLearn')
+
+        try:
+            res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
+        except Exception as ex:
+            log.exception(
+                u'Error MSLearn request: %s',
+                text_type(ex),
+            )
+
+        res_json = res.json()
+        
+        log.info('Getting modules from response')
+        modules = res_json.get('modules')
+        log.info(u'MSLearn modules count: %d', len(modules))
+
+        log.error('Getting learning paths from response')
+        learning_paths = res_json.get('learningPaths')
+        log.error(u'MSLearn learning paths count: %d', len(learning_paths))
+
+        # mslearn_courses = []
+
+        # log.info('Modules:')
+        # for module in modules:
+        #     # Create course overview based on module 
+        #     course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
+        #     # Append it to course_overviews
+        #     mslearn_courses.append(course_overview)
+        #     log.debug(pformat(course_overview))
+
+        # log.info('Learning paths:')
+        # for learning_path in learning_paths:
+        #     # Create course overview based on learning_path 
+        #     course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
+        #     # Append it to course_overviews
+        #     mslearn_courses.append(course_overview)
+        #     log.debug(pformat(course_overview))
 
         return course_overviews
 
