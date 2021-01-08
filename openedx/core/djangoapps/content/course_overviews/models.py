@@ -655,8 +655,6 @@ class CourseOverview(TimeStampedModel):
             course_overviews = course_overviews.filter(**filter_)
 
         # Add MS Learn courses to course overviews 
-        log.info('Sending request to MSLearn')
-
         try:
             res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
         except Exception as ex:
@@ -667,33 +665,29 @@ class CourseOverview(TimeStampedModel):
 
         res_json = res.json()
         
-        log.info('Getting modules from response')
         modules = res_json.get('modules')
-        log.info(u'MSLearn modules count: %d', len(modules))
-
-        log.error('Getting learning paths from response')
+        # log.info(u'MSLearn modules count: %d', len(modules))
         learning_paths = res_json.get('learningPaths')
-        log.error(u'MSLearn learning paths count: %d', len(learning_paths))
+        # log.error(u'MSLearn learning paths count: %d', len(learning_paths))
 
-        # mslearn_courses = []
+        mslearn_courses = []
 
-        # log.info('Modules:')
-        # for module in modules:
-        #     # Create course overview based on module 
-        #     course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
-        #     # Append it to course_overviews
-        #     mslearn_courses.append(course_overview)
-        #     log.debug(pformat(course_overview))
+        for module in modules:
+            # Create course overview based on module 
+            course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
+            # Append it to course_overviews
+            mslearn_courses.append(course_overview)
+            log.info(pformat(course_overview))
 
-        # log.info('Learning paths:')
-        # for learning_path in learning_paths:
-        #     # Create course overview based on learning_path 
-        #     course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
-        #     # Append it to course_overviews
-        #     mslearn_courses.append(course_overview)
-        #     log.debug(pformat(course_overview))
+        for learning_path in learning_paths:
+            # Create course overview based on learning_path 
+            course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
+            # Append it to course_overviews
+            mslearn_courses.append(course_overview)
+            log.info(pformat(course_overview))
 
-        return course_overviews
+        return (course_overviews | mslearn_courses).distinct()
+        # return course_overviews.union(mslearn_courses)
 
     @classmethod
     def get_all_course_keys(cls):
