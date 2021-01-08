@@ -686,7 +686,8 @@ class CourseOverview(TimeStampedModel):
             mslearn_courses.append(course_overview)
             log.info(pformat(course_overview))
 
-        return (course_overviews | mslearn_courses).distinct()
+        # return (course_overviews | mslearn_courses).distinct() -> Maybe baby, no touchy 
+        return course_overviews
         # return course_overviews.union(mslearn_courses)
 
     @classmethod
