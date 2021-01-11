@@ -131,14 +131,14 @@ class CourseOverview(TimeStampedModel):
 
     history = HistoricalRecords()
 
-    def __init__(self, title, summary, icon_url, url):
-        self.lowest_passing_grade = None
-        self.display_name = title
-        self.max_student_enrollments_allowed = 999
-        self.short_description = summary
-        self.course_image_url = icon_url
-        self.catalog_visibility = 'both'
-        self.language = 'en'
+    #def __init__(self, title, summary, icon_url, url):
+    #    self.lowest_passing_grade = None
+    #    self.display_name = title
+    #    self.max_student_enrollments_allowed = 999
+    #    self.short_description = summary
+    #    self.course_image_url = icon_url
+    #    self.catalog_visibility = 'both'
+    #    self.language = 'en'
 
     @classmethod
     def _create_or_update(cls, course):
@@ -655,36 +655,36 @@ class CourseOverview(TimeStampedModel):
             course_overviews = course_overviews.filter(**filter_)
 
         # Add MS Learn courses to course overviews 
-        try:
-            res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
-        except Exception as ex:
-            log.exception(
-                u'Error MSLearn request: %s',
-                text_type(ex),
-            )
+        #try:
+        #    res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
+        #except Exception as ex:
+        #    log.exception(
+        #        u'Error MSLearn request: %s',
+        #        text_type(ex),
+        #    )
 
-        res_json = res.json()
+        #res_json = res.json()
         
-        modules = res_json.get('modules')
+        #modules = res_json.get('modules')
         # log.info(u'MSLearn modules count: %d', len(modules))
-        learning_paths = res_json.get('learningPaths')
+        #learning_paths = res_json.get('learningPaths')
         # log.error(u'MSLearn learning paths count: %d', len(learning_paths))
 
-        mslearn_courses = []
+        #mslearn_courses = []
 
-        for module in modules:
+        #for module in modules:
             # Create course overview based on module 
-            course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
+        #    course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
             # Append it to course_overviews
-            mslearn_courses.append(course_overview)
-            log.info(pformat(course_overview))
+        #    mslearn_courses.append(course_overview)
+        #    log.info(pformat(course_overview))
 
-        for learning_path in learning_paths:
+        #for learning_path in learning_paths:
             # Create course overview based on learning_path 
-            course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
+        #    course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
             # Append it to course_overviews
-            mslearn_courses.append(course_overview)
-            log.info(pformat(course_overview))
+        #    mslearn_courses.append(course_overview)
+        #    log.info(pformat(course_overview))
 
         # return (course_overviews | mslearn_courses).distinct() -> Maybe baby, no touchy 
         return course_overviews
