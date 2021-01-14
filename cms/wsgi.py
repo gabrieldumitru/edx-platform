@@ -18,6 +18,7 @@ contracts.disable_all()
 
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cms.envs.aws")
+os.environ.setdefault("JWPLATFORM_API_SECRET", "aJbwuVmfGLMnyci6gGo5QlOI")
 
 import cms.startup as startup
 startup.run()

@@ -18,6 +18,7 @@ contracts.disable_all()
 
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
+os.environ.setdefault("JWPLATFORM_API_SECRET", "aJbwuVmfGLMnyci6gGo5QlOI")
 
 import lms.startup as startup
 startup.run()
