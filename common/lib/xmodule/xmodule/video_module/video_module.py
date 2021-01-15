@@ -802,7 +802,7 @@ class VideoBlock(
         else:
             return u''
 
-    def signed_url(path, expires, secret=API_SECRET, host="https://content.jwplatform.com/"):
+    def signed_url(path, expires, secret="aJbwuVmfGLMnyci6gGo5QlOI", host="https://content.jwplatform.com/"):
         """
         Return signed url for the single line embed javascript.
 
