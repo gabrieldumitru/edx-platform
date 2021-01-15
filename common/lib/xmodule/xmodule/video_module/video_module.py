@@ -793,7 +793,7 @@ class VideoBlock(
         """
         if jwplayer_media_id:
             expires = math.ceil((time.time() + 3600) / 300) * 300
-            API_SECRET = os.getenv("JWPLATFORM_API_SECRET")
+            API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
             host="https://content.jwplatform.com/"
             path = u'videos/{0}.mp4'.format(jwplayer_media_id)
 
