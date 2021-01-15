@@ -782,6 +782,19 @@ class VideoBlock(
 
         return xml
 
+    def signed_url(path, expires, secret="aJbwuVmfGLMnyci6gGo5QlOI", host="https://content.jwplatform.com/"):
+        """
+        Return signed url for the single line embed javascript.
+
+        Args:
+        media_id (str): the media id (also referred to as video key)
+        player_id (str): the player id (also referred to as player key)
+        """
+        s = "{path}:{exp}:{secret}".format(path=path, exp=str(expires), secret=API_SECRET)
+        signature = hashlib.md5(s.encode("utf-8")).hexdigest()
+        signed_params=dict(exp=expires, sig=signature)
+        return "{host}/{path}?{params}".format(host=host, path=path, params=urllib.parse.urlencode(signed_params))
+
     def create_youtube_url(self, jwplayer_media_id):
         """
 
@@ -801,19 +814,6 @@ class VideoBlock(
             return url
         else:
             return u''
-
-    def signed_url(path, expires, secret="aJbwuVmfGLMnyci6gGo5QlOI", host="https://content.jwplatform.com/"):
-        """
-        Return signed url for the single line embed javascript.
-
-        Args:
-        media_id (str): the media id (also referred to as video key)
-        player_id (str): the player id (also referred to as player key)
-        """
-        s = "{path}:{exp}:{secret}".format(path=path, exp=str(expires), secret=API_SECRET)
-        signature = hashlib.md5(s.encode("utf-8")).hexdigest()
-        signed_params=dict(exp=expires, sig=signature)
-        return "{host}/{path}?{params}".format(host=host, path=path, params=urllib.parse.urlencode(signed_params))
 
     def get_context(self):
         """
