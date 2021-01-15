@@ -798,7 +798,7 @@ class VideoBlock(
             path = u'videos/{0}.mp4'.format(jwplayer_media_id)
 
             url = signed_url(path, expires, API_SECRET, host)
-            return u'https://content.jwplatform.com/videos/{0}'.format(jwplayer_media_id)
+            return url
         else:
             return u''
 
