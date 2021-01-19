@@ -782,7 +782,7 @@ class VideoBlock(
 
         return xml
 
-    def signed_url(path, expires, secret="aJbwuVmfGLMnyci6gGo5QlOI", host="https://content.jwplatform.com/"):
+    def signed_url(path, expires, secret, host):
         """
         Return signed url for the single line embed javascript.
 
