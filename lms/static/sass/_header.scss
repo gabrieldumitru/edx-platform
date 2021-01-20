@@ -6,8 +6,8 @@
 .global-header {
   box-sizing: border-box;
   width: 100%;
-  position: relative;
-  overflow: hidden;
+  position: relative!important;
+  overflow: hidden!important;
   padding-bottom: $baseline/2;
   border-bottom: 1px solid theme-color("primary");
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
@@ -36,7 +36,7 @@
         height: $header-logo-height;
       }
 
-      @include media-breakpoint-down(xl) {
+      @include media-breakpoint-down(md) {
         @include margin-left(50%);
 
         height: $header-logo-height;
@@ -65,7 +65,7 @@
       }
 
       // Hide the course header for smaller screen sizes
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up(xl) {
         display: block;
       }
     }
@@ -252,7 +252,7 @@
   }
 
   // Responsive styling for mobile
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(md) {
     .main-header {
       height: $header-logo-height;
       position: inherit;
@@ -339,6 +339,12 @@
 /*
   Mobile menu styling
 */
+.equatorial {
+  @include media-breakpoint-up(xl){
+    display: none!important;
+  }
+}
+
 .mobile-menu {
   border-top: 1px solid theme-color('primary');
   margin: $baseline*1.25 0 -0.5*$baseline;
@@ -347,7 +353,7 @@
     display: none !important;
   }
 
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(md) {
     // Override standard styling for the mobile menu links
     .mobile-nav-link {
       position: static;
@@ -391,7 +397,7 @@
 
 // Hide elements in menu bar when they exist in mobile
 .hidden-mobile {
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(md) {
     &:not(.mobile-nav-link) {
       display: none;
     }
