@@ -14,7 +14,7 @@
   background: theme-color("inverse");
   line-height: 1.5;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(xl) {
     position: inherit;
   }
 
@@ -36,7 +36,7 @@
         height: $header-logo-height;
       }
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(xl) {
         @include margin-left(50%);
 
         height: $header-logo-height;
@@ -84,7 +84,7 @@
     by the desktop styling
   */
   // Desktop styling
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(xl) {
     .nav-links {
       .nav-item {
         margin: 0 $baseline;
@@ -252,7 +252,7 @@
   }
 
   // Responsive styling for mobile
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(xl) {
     .main-header {
       height: $header-logo-height;
       position: inherit;
@@ -347,7 +347,7 @@
     display: none !important;
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(xl) {
     // Override standard styling for the mobile menu links
     .mobile-nav-link {
       position: static;
@@ -391,7 +391,7 @@
 
 // Hide elements in menu bar when they exist in mobile
 .hidden-mobile {
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(xl) {
     &:not(.mobile-nav-link) {
       display: none;
     }
