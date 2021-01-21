@@ -830,16 +830,16 @@ class VideoBlock(
         video_id = metadata_fields['edx_video_id']
         youtube_id_1_0 = metadata_fields['youtube_id_1_0']
 
-        def get_youtube_link(video_id):
+        def get_jwplayer_video_link(video_id):
             """
             Returns the fully-qualified YouTube URL for the given video identifier
             """
             # First try a lookup in VAL. If we have a YouTube entry there, it overrides the
             # one passed in.
-            if self.edx_video_id and edxval_api:
-                val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, "youtube")
-                if val_youtube_id:
-                    video_id = val_youtube_id
+            #if self.edx_video_id and edxval_api:
+            #    val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, "youtube")
+            #    if val_youtube_id:
+            #        video_id = val_youtube_id
 
             return self.create_youtube_url(video_id)
 
@@ -847,10 +847,10 @@ class VideoBlock(
         video_url.update({
             'help': _('The URL for your video. This can be a YouTube URL or a link to an .mp4, .ogg, or '
                       '.webm video file hosted elsewhere on the Internet.'),
-            'display_name': _('Default Video URL'),
+            'display_name': _('Jwplayer Video Url'),
             'field_name': 'video_url',
             'type': 'VideoList',
-            'default_value': [get_youtube_link(youtube_id_1_0['default_value'])]
+            'default_value': [get_jwplayer_video_link(video_id)]
         })
 
         source_url = self.create_youtube_url(youtube_id_1_0['value'])

@@ -14,7 +14,7 @@
   background: theme-color("inverse");
   line-height: 1.5;
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     position: inherit;
   }
 
@@ -65,7 +65,7 @@
       }
 
       // Hide the course header for smaller screen sizes
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(md) {
         display: block;
       }
     }
@@ -252,7 +252,7 @@
   }
 
   // Responsive styling for mobile
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(md) {
     .main-header {
       height: $header-logo-height;
       position: inherit;
@@ -349,7 +349,7 @@
   border-top: 1px solid theme-color('primary');
   margin: $baseline*1.25 0 -0.5*$baseline;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     display: none !important;
   }
 
