@@ -65,7 +65,7 @@
       }
 
       // Hide the course header for smaller screen sizes
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up(1245) {
         display: block;
       }
     }
@@ -84,7 +84,7 @@
     by the desktop styling
   */
   // Desktop styling
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(md) {
     .nav-links {
       .nav-item {
         margin: 0 $baseline;
@@ -340,7 +340,7 @@
   Mobile menu styling
 */
 .equatorial {
-  @include media-breakpoint-up(xl){
+  @include media-breakpoint-down(1245){
     display: none!important;
   }
 }
