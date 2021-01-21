@@ -65,7 +65,7 @@
       }
 
       // Hide the course header for smaller screen sizes
-      @include media-breakpoint-up(1245) {
+      @include media-breakpoint-up(xl) {
         display: block;
       }
     }
@@ -340,7 +340,7 @@
   Mobile menu styling
 */
 .equatorial {
-  @include media-breakpoint-down(1245){
+  @include media-breakpoint-down(xl){
     display: none!important;
   }
 }

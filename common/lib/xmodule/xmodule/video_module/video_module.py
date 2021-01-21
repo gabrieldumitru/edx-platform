@@ -20,7 +20,7 @@ import logging
 import hashlib
 import math
 import time
-from urllib.parse import urlencode
+import urllib
 from collections import OrderedDict, defaultdict
 from operator import itemgetter
 
