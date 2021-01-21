@@ -6,8 +6,8 @@
 .global-header {
   box-sizing: border-box;
   width: 100%;
-  position: relative!important;
-  overflow: hidden!important;
+  position: relative;
+  overflow: hidden;
   padding-bottom: $baseline/2;
   border-bottom: 1px solid theme-color("primary");
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
@@ -339,17 +339,11 @@
 /*
   Mobile menu styling
 */
-.equatorial {
-  @include media-breakpoint-down(sm){
-    display: none!important;
-  }
-}
-
 .mobile-menu {
   border-top: 1px solid theme-color('primary');
   margin: $baseline*1.25 0 -0.5*$baseline;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     display: none !important;
   }
 

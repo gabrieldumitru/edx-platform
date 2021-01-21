@@ -18,9 +18,13 @@ import copy
 import json
 import logging
 import hashlib
+
 import math
 import time
-import urllib
+import urllib.parse
+from jose import jwt
+import requests
+
 from collections import OrderedDict, defaultdict
 from operator import itemgetter
 
@@ -787,32 +791,41 @@ class VideoBlock(
         """
 
         Args:
-            //youtube_id: The ID of the video to create a link for
             jwplayer_media_id: The ID of the video to create a link for 
         Returns:
-            A full youtube url to the video whose ID is passed in
+            A full jwplayer url to the video whose ID is passed in
         """
-        def signed_url(path, expires, secret, host):
+        def jwt_signed_url(host):
             """
-            Return signed url for the single line embed javascript.
+            Generate url with signature
 
             Args:
-            media_id (str): the media id (also referred to as video key)
-            player_id (str): the player id (also referred to as player key)
+                path (str): url path
+                host (str): url host
             """
-            s = "{path}:{exp}:{secret}".format(path=path, exp=str(expires), secret=API_SECRET)
-            signature = hashlib.md5(s.encode("utf-8")).hexdigest()
-            signed_params=dict(exp=expires, sig=signature)
-            return "{host}/{path}?{params}".format(host=host, path=path, params=urllib.parse.urlencode(signed_params))
+
+            API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
+            media_id = jwplayer_media_id
+            path = "/v2/media/{media_id}".format(media_id=media_id)
+
+            params = {}
+            params["resource"] = path
+            params["exp"] = exp
+
+            # Generate token
+            # note that all parameters must be included here
+            token = jwt.encode(params, API_SECRET, algorithm="HS256")
+            url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
+
+            return url
 
         if jwplayer_media_id:
-            expires = math.ceil((time.time() + 3600) / 300) * 300
-            API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
             host="https://content.jwplatform.com/"
-            path = u'videos/{0}.mp4'.format(jwplayer_media_id)
-            log.error('Url created path with jwplayer_media_id is: %s', path)
-            url = signed_url(path, expires, API_SECRET, host)
-            log.error('Signed url created is: %s', url)
+
+            url = jwt_signed_url(host)
+            log.error('Token signed url created is: %s', url)
+            r = requests.get(url)
+            log.error('Returned json: %s', r.json())
             return url
         else:
             return u''
@@ -841,7 +854,7 @@ class VideoBlock(
             #    if val_youtube_id:
             #        video_id = val_youtube_id
 
-            return self.create_youtube_url(video_id)
+            return self.create_youtube_url(video_id['value'])
 
         _ = self.runtime.service(self, "i18n").ugettext
         video_url.update({

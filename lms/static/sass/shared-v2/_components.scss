@@ -146,10 +146,6 @@
 .wrapper-preview-menu {
   @include clearfix();
 
-  @include media-breakpoint-up(lg){
-    margin-top: 0px;
-  }
-
   box-sizing: border-box;
   margin: 0 auto;
   padding: ($baseline*0.75) 20px;
