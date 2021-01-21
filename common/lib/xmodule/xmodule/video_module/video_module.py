@@ -810,8 +810,9 @@ class VideoBlock(
             API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
             host="https://content.jwplatform.com/"
             path = u'videos/{0}.mp4'.format(jwplayer_media_id)
-
+            log.error('Url created path with jwplayer_media_id is: %s', path)
             url = signed_url(path, expires, API_SECRET, host)
+            log.error('Signed url created is: %s', url)
             return url
         else:
             return u''

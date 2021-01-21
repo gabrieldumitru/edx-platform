@@ -14,7 +14,7 @@
   background: theme-color("inverse");
   line-height: 1.5;
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(sm) {
     position: inherit;
   }
 
@@ -65,7 +65,7 @@
       }
 
       // Hide the course header for smaller screen sizes
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up(sm) {
         display: block;
       }
     }
@@ -252,7 +252,7 @@
   }
 
   // Responsive styling for mobile
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     .main-header {
       height: $header-logo-height;
       position: inherit;
@@ -340,7 +340,7 @@
   Mobile menu styling
 */
 .equatorial {
-  @include media-breakpoint-down(xl){
+  @include media-breakpoint-down(sm){
     display: none!important;
   }
 }
