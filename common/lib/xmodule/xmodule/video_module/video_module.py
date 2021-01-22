@@ -829,7 +829,7 @@ class VideoBlock(
             json = r.json()
             urlToReturn = json['playlist']['sources'][2]['file']
 
-            for i in json['playlist']['sources']
+            for i in json['playlist'][0]['sources']
                 if i['width'] = 1920
                     urlToReturn = i['file']
                 else if i['width'] = 1280
