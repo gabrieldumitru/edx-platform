@@ -821,13 +821,24 @@ class VideoBlock(
             return url
 
         if jwplayer_media_id:
-            host="https://content.jwplatform.com/"
+            host="https://content.jwplatform.com"
 
             url = jwt_signed_url(host)
             log.error('Token signed url created is: %s', url)
             r = requests.get(url)
-            log.error('Returned json: %s', r.json())
-            return url
+            json = r.json()
+            urlToReturn = json['playlist']['sources'][2]['file']
+
+            for i in json['playlist']['sources']
+                if i['width'] = 1920
+                    urlToReturn = i['file']
+                else if i['width'] = 1280
+                    urlToReturn = i['file']
+
+            log.error('Returned json video quality choices: %s', json['playlist']['sources'])
+            log.error('Returned json prefered value is: %s', urlToReturn)
+
+            return urlToReturn
         else:
             return u''
 
