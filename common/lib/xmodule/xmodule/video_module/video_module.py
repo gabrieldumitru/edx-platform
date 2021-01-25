@@ -829,7 +829,7 @@ class VideoBlock(
             jsonData = r.json()
             log.error('JsonData : %s', jsonData)
 
-            urlToReturn = jsonData['playlist']['sources'][2]['file']
+            urlToReturn = ''
             log.error('UrlToReturn initial: %s', urlToReturn)
 
             sourcesArray = jsonData['playlist'][0]['sources']
