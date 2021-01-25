@@ -835,13 +835,17 @@ class VideoBlock(
             sourcesArray = jsonData['playlist'][0]['sources']
 
             for i in sourcesArray:
-                if i['width'] == 1920:
-                    urlToReturn = i['file']
-                elif i['width'] == 1280:
-                    urlToReturn = i['file']
+                if 'width' in i.keys():
+                    if i['width']==480:
+                        urlToReturn = i['file']
+                    elif i['width']==640:
+                        urlToReturn = i['file']
+                    elif i['width']==1280:
+                        urlToReturn = i['file']
+                    elif i['width']==1920:
+                        urlToReturn = i['file']
 
-            log.error('Returned json video quality choices: %s', json['playlist']['sources'])
-            log.error('Returned json prefered value is: %s', urlToReturn)
+            log.error('Returned url: %s', urlToReturn)
 
             return urlToReturn
         else:
