@@ -826,10 +826,15 @@ class VideoBlock(
             url = jwt_signed_url(host)
             log.error('Token signed url created is: %s', url)
             r = requests.get(url)
-            json = r.json()
-            urlToReturn = json['playlist']['sources'][2]['file']
+            jsonData = r.json()
+            log.error('JsonData : %s', jsonData)
+            
+            urlToReturn = jsonData['playlist']['sources'][2]['file']
+            log.error('UrlToReturn initial: %s', urlToReturn)
 
-            for i in json['playlist'][0]['sources']
+            sourcesArray = jsonData['playlist'][0]['sources']
+
+            for i in sourcesArray
                 if i['width'] = 1920
                     urlToReturn = i['file']
                 else if i['width'] = 1280
