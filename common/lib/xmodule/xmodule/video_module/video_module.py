@@ -828,13 +828,13 @@ class VideoBlock(
             r = requests.get(url)
             jsonData = r.json()
             log.error('JsonData : %s', jsonData)
-            
+
             urlToReturn = jsonData['playlist']['sources'][2]['file']
             log.error('UrlToReturn initial: %s', urlToReturn)
 
             sourcesArray = jsonData['playlist'][0]['sources']
 
-            for i in sourcesArray
+            for i in sourcesArray:
                 if i['width'] = 1920
                     urlToReturn = i['file']
                 else if i['width'] = 1280
