@@ -884,33 +884,34 @@ class VideoBlock(
             'display_name': _('Jwplayer Video Url'),
             'field_name': 'video_url',
             'type': 'VideoList',
+            'value': [get_jwplayer_video_link(video_id)]
             'default_value': [get_jwplayer_video_link(video_id)]
         })
 
-        source_url = self.create_youtube_url(youtube_id_1_0['value'])
+        source_url = self.create_youtube_url(video_id['value'])
         # First try a lookup in VAL. If any video encoding is found given the video id then
         # override the source_url with it.
-        if self.edx_video_id and edxval_api:
+        #if self.edx_video_id and edxval_api:
 
-            val_profiles = ['youtube', 'desktop_webm', 'desktop_mp4']
-            if HLSPlaybackEnabledFlag.feature_enabled(self.runtime.course_id.for_branch(None)):
-                val_profiles.append('hls')
+        #   val_profiles = ['youtube', 'desktop_webm', 'desktop_mp4']
+        #    if HLSPlaybackEnabledFlag.feature_enabled(self.runtime.course_id.for_branch(None)):
+        #        val_profiles.append('hls')
 
             # Get video encodings for val profiles.
-            val_video_encodings = edxval_api.get_urls_for_profiles(self.edx_video_id, val_profiles)
+        #    val_video_encodings = edxval_api.get_urls_for_profiles(self.edx_video_id, val_profiles)
 
             # VAL's youtube source has greater priority over external youtube source.
-            if val_video_encodings.get('youtube'):
-                source_url = self.create_youtube_url(val_video_encodings['youtube'])
+        #    if val_video_encodings.get('youtube'):
+        #        source_url = self.create_youtube_url(val_video_encodings['youtube'])
 
             # If no youtube source is provided externally or in VAl, update source_url in order: hls > mp4 and webm
-            if not source_url:
-                if val_video_encodings.get('hls'):
-                    source_url = val_video_encodings['hls']
-                elif val_video_encodings.get('desktop_mp4'):
-                    source_url = val_video_encodings['desktop_mp4']
-                elif val_video_encodings.get('desktop_webm'):
-                    source_url = val_video_encodings['desktop_webm']
+        #    if not source_url:
+        #        if val_video_encodings.get('hls'):
+        #            source_url = val_video_encodings['hls']
+        #        elif val_video_encodings.get('desktop_mp4'):
+        #            source_url = val_video_encodings['desktop_mp4']
+        #        elif val_video_encodings.get('desktop_webm'):
+        #            source_url = val_video_encodings['desktop_webm']
 
         # Only add if html5 sources do not already contain source_url.
         if source_url and source_url not in video_url['value']:
