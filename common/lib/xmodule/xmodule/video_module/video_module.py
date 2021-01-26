@@ -898,8 +898,8 @@ class VideoBlock(
                 'type': 'VideoList',
                 'value': video_generated_url
             })
-            source_url = self.create_youtube_url(video_id['value'])
-        
+            
+        source_url = self.create_youtube_url(video_id['value'])
         # First try a lookup in VAL. If any video encoding is found given the video id then
         # override the source_url with it.
         #if self.edx_video_id and edxval_api:
