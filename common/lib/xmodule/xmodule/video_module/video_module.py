@@ -894,7 +894,7 @@ class VideoBlock(
                 'display_name': _('Jwplayer Video Url'),
                 'field_name': 'video_url',
                 'type': 'VideoList',
-                'value': video_generated_url,
+                'value': [video_generated_url],
                 'default_value': [get_jwplayer_video_link(video_id)]
             })
             
@@ -929,7 +929,7 @@ class VideoBlock(
 
         metadata = {
             'display_name': display_name,
-            'video_url': video_url,
+            'video_url': video_generated_url,
             'edx_video_id': video_id
         }
 
