@@ -929,7 +929,7 @@ class VideoBlock(
 
         metadata = {
             'display_name': display_name,
-            'video_url': video_generated_url,
+            'video_url': video_url,
             'edx_video_id': video_id
         }
 
