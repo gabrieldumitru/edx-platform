@@ -831,6 +831,9 @@ class VideoBlock(
 
             urlToReturn = ''
             log.error('UrlToReturn initial: %s', urlToReturn)
+            
+            if (r.status_code != 200):
+                return urlToReturn
 
             sourcesArray = jsonData['playlist'][0]['sources']
 
@@ -874,21 +877,29 @@ class VideoBlock(
             #    val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, "youtube")
             #    if val_youtube_id:
             #        video_id = val_youtube_id
-
             return self.create_youtube_url(video_id['value'])
 
-        _ = self.runtime.service(self, "i18n").ugettext
-        video_url.update({
-            'help': _('The URL for your video. This can be a YouTube URL or a link to an .mp4, .ogg, or '
-                      '.webm video file hosted elsewhere on the Internet.'),
-            'display_name': _('Jwplayer Video Url'),
-            'field_name': 'video_url',
-            'type': 'VideoList',
-            'value': [get_jwplayer_video_link(video_id)]
-            'default_value': [get_jwplayer_video_link(video_id)]
-        })
+        video_generated_url = get_jwplayer_video_link(video_id)
 
-        source_url = self.create_youtube_url(video_id['value'])
+        _ = self.runtime.service(self, "i18n").ugettext
+
+        if video_generated_url == "":
+            video_id.update({
+                'help': _('The Video Id might be malformed. Please try a valid one!'),
+                'display_name': _('Jwplayer Video Id'),
+                'field_name': 'edx_video_id',
+            })
+        else:
+            video_url.update({
+                'help': _('The URL for your video. This can be a YouTube URL or a link to an .mp4, .ogg, or '
+                        '.webm video file hosted elsewhere on the Internet.'),
+                'display_name': _('Jwplayer Video Url'),
+                'field_name': 'video_url',
+                'type': 'VideoList',
+                'value': video_generated_url
+            })
+            source_url = self.create_youtube_url(video_id['value'])
+        
         # First try a lookup in VAL. If any video encoding is found given the video id then
         # override the source_url with it.
         #if self.edx_video_id and edxval_api:
