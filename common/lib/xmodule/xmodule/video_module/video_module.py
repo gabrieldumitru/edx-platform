@@ -879,15 +879,13 @@ class VideoBlock(
             #        video_id = val_youtube_id
             return self.create_youtube_url(video_id['value'])
 
-        video_generated_url = get_jwplayer_video_link(video_id)
+        video_generated_url = self.create_youtube_url(video_id['value'])
 
         _ = self.runtime.service(self, "i18n").ugettext
 
         if video_generated_url == "":
             video_id.update({
-                'help': _('The Video Id might be malformed. Please try a valid one!'),
-                'display_name': _('Jwplayer Video Id'),
-                'field_name': 'edx_video_id',
+                'help': _('The Video Id might be malformed. Please try a valid one!')
             })
         else:
             video_url.update({
@@ -896,7 +894,8 @@ class VideoBlock(
                 'display_name': _('Jwplayer Video Url'),
                 'field_name': 'video_url',
                 'type': 'VideoList',
-                'value': video_generated_url
+                'value': video_generated_url,
+                'default_value': [get_jwplayer_video_link(video_id)]
             })
             
         source_url = self.create_youtube_url(video_id['value'])
