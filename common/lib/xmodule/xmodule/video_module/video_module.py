@@ -879,24 +879,24 @@ class VideoBlock(
             #        video_id = val_youtube_id
             return self.create_youtube_url(video_id['value'])
 
-        video_generated_url = self.create_youtube_url(video_id['value'])
+        #video_generated_url = self.create_youtube_url(video_id['value'])
 
         _ = self.runtime.service(self, "i18n").ugettext
 
-        if video_generated_url == "":
-            video_id.update({
-                'help': _('The Video Id might be malformed. Please try a valid one!')
-            })
-        else:
-            video_url.update({
-                'help': _('The URL for your video. This can be a YouTube URL or a link to an .mp4, .ogg, or '
-                        '.webm video file hosted elsewhere on the Internet.'),
-                'display_name': _('Jwplayer Video Url'),
-                'field_name': 'video_url',
-                'type': 'VideoList',
-                'value': [video_generated_url],
-                'default_value': [get_jwplayer_video_link(video_id)]
-            })
+        #if video_generated_url == "":
+        #    video_id.update({
+        #        'help': _('The Video Id might be malformed. Please try a valid one!')
+        #    })
+        #else:
+        video_url.update({
+            'help': _('The URL for your video. This can be a YouTube URL or a link to an .mp4, .ogg, or '
+                    '.webm video file hosted elsewhere on the Internet.'),
+            'display_name': _('Jwplayer Video Url'),
+            'field_name': 'video_url',
+            'type': 'VideoList',
+            'value': [get_jwplayer_video_link(video_id)],
+            'default_value': [get_jwplayer_video_link(video_id)]
+        })
             
         source_url = self.create_youtube_url(video_id['value'])
         # First try a lookup in VAL. If any video encoding is found given the video id then
@@ -924,8 +924,8 @@ class VideoBlock(
         #            source_url = val_video_encodings['desktop_webm']
 
         # Only add if html5 sources do not already contain source_url.
-        if source_url and source_url not in video_url['value']:
-            video_url['value'].insert(0, source_url)
+        #if source_url and source_url not in video_url['value']:
+        #    video_url['value'].insert(0, source_url)
 
         metadata = {
             'display_name': display_name,
