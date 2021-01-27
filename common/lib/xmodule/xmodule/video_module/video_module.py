@@ -297,13 +297,13 @@ class VideoBlock(
         # stream.
         if self.edx_video_id and edxval_api:
             try:
-                val_profiles = ["youtube", "desktop_webm", "desktop_mp4"]
+                #val_profiles = ["youtube", "desktop_webm", "desktop_mp4"]
 
-                if HLSPlaybackEnabledFlag.feature_enabled(self.course_id):
-                    val_profiles.append('hls')
+                #if HLSPlaybackEnabledFlag.feature_enabled(self.course_id):
+                #    val_profiles.append('hls')
 
                 # strip edx_video_id to prevent ValVideoNotFoundError error if unwanted spaces are there. TNL-5769
-                val_video_urls = edxval_api.get_urls_for_profiles(self.edx_video_id.strip(), val_profiles)
+                #val_video_urls = edxval_api.get_urls_for_profiles(self.edx_video_id.strip(), val_profiles)
 
                 # VAL will always give us the keys for the profiles we asked for, but
                 # if it doesn't have an encoded video entry for that Video + Profile, the
@@ -311,23 +311,28 @@ class VideoBlock(
 
                 # add the non-youtube urls to the list of alternative sources
                 # use the last non-None non-youtube non-hls url as the link to download the video
-                for url in [val_video_urls[p] for p in val_profiles if p != "youtube"]:
-                    if url:
-                        if url not in sources:
-                            sources.append(url)
-                        # don't include hls urls for download
-                        if self.download_video and not url.endswith('.m3u8'):
-                            # function returns None when the url cannot be re-written
-                            rewritten_link = rewrite_video_url(cdn_url, url)
-                            if rewritten_link:
-                                download_video_link = rewritten_link
-                            else:
-                                download_video_link = url
+                #for url in [val_video_urls[p] for p in val_profiles if p != "youtube"]:
+                #    if url:
+                #        if url not in sources:
+                #            sources.append(url)
+                #        # don't include hls urls for download
+                #        if self.download_video and not url.endswith('.m3u8'):
+                #            # function returns None when the url cannot be re-written
+                #            rewritten_link = rewrite_video_url(cdn_url, url)
+                #            if rewritten_link:
+                #                download_video_link = rewritten_link
+                #            else:
+                #                download_video_link = url
 
                 # set the youtube url
-                if val_video_urls["youtube"]:
-                    youtube_streams = "1.00:{}".format(val_video_urls["youtube"])
+                #if val_video_urls["youtube"]:
+                #    youtube_streams = "1.00:{}".format(val_video_urls["youtube"])
 
+                for index, source_url in enumerate(sources):
+                    new_url = rewrite_video_url(self.edx_video_id, source_url)
+                    if new_url:
+                        sources[index] = new_url
+                
                 # get video duration
                 video_data = edxval_api.get_video_info(self.edx_video_id.strip())
                 video_duration = video_data.get('duration')
@@ -343,24 +348,18 @@ class VideoBlock(
         # 'CN' is China ISO 3166-1 country code.
         # Video caching is disabled for Studio. User_location is always None in Studio.
         # CountryMiddleware disabled for Studio.
-        if getattr(self, 'video_speed_optimizations', True) and cdn_url:
-            branding_info = BrandingInfoConfig.get_config().get(self.system.user_location)
-
-            if self.edx_video_id and edxval_api and video_status != u'external':
-                for index, source_url in enumerate(sources):
-                    new_url = rewrite_video_url(cdn_url, source_url)
-                    if new_url:
-                        sources[index] = new_url
+        #if getattr(self, 'video_speed_optimizations', True) and cdn_url:
+        #    branding_info = BrandingInfoConfig.get_config().get(self.system.user_location)
 
         # If there was no edx_video_id, or if there was no download specified
         # for it, we fall back on whatever we find in the VideoBlock.
-        if not download_video_link and self.download_video:
-            if self.html5_sources:
-                download_video_link = self.html5_sources[0]
+        #if not download_video_link and self.download_video:
+        #    if self.html5_sources:
+        #        download_video_link = self.html5_sources[0]
 
             # don't give the option to download HLS video urls
-            if download_video_link and download_video_link.endswith('.m3u8'):
-                download_video_link = None
+        #    if download_video_link and download_video_link.endswith('.m3u8'):
+        download_video_link = None
 
         transcripts = self.get_transcripts_info()
         track_url, transcript_language, sorted_languages = self.get_transcripts_for_student(transcripts=transcripts)
@@ -936,8 +935,7 @@ class VideoBlock(
         metadata = {
             'display_name': display_name,
             'video_url': video_url,
-            'edx_video_id': video_id,
-            'html5_sources': video_url
+            'edx_video_id': video_id
         }
 
         _context.update({'transcripts_basic_tab_metadata': metadata})
