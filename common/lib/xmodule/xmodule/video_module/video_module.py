@@ -556,9 +556,13 @@ class VideoBlock(
             # saves the video second time. This is because of the syncing of basic and advanced video settings which
             # also syncs val youtube id from basic tab's `Video Url` to advanced tab's `Youtube ID`.
             if self.edx_video_id and edxval_api:
-                val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, 'youtube')
-                if val_youtube_id and self.youtube_id_1_0 != val_youtube_id:
-                    self.youtube_id_1_0 = val_youtube_id
+                #val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, 'youtube')
+                #if val_youtube_id and self.youtube_id_1_0 != val_youtube_id:
+                    #self.youtube_id_1_0 = val_youtube_id
+                video_info = edxval_api.get_video_info(self.edx_video_id)
+                added_url = video_info['encoded_videos'][0]['url']
+                if added_url and self.html5_sources[0] != added_url:
+                    self.html5_sources[0] = added_url
 
             manage_video_subtitles_save(
                 self,
@@ -924,13 +928,13 @@ class VideoBlock(
         #            source_url = val_video_encodings['desktop_webm']
 
         # Only add if html5 sources do not already contain source_url.
-        #if source_url and source_url not in video_url['value']:
-        #    video_url['value'].insert(0, source_url)
+        if source_url and source_url not in video_url['value']:
+            video_url['value'].insert(0, source_url)
 
         metadata = {
             'display_name': display_name,
             'video_url': video_url,
-            'edx_video_id': video_id
+            'edx_video_id': video_id,
         }
 
         _context.update({'transcripts_basic_tab_metadata': metadata})
