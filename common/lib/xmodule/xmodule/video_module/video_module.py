@@ -555,7 +555,7 @@ class VideoBlock(
             # an `edx_video_id` or its underlying YT val profile. Without this, override will only happen when a user
             # saves the video second time. This is because of the syncing of basic and advanced video settings which
             # also syncs val youtube id from basic tab's `Video Url` to advanced tab's `Youtube ID`.
-            if self.edx_video_id and edxval_api:
+            #if self.edx_video_id and edxval_api:
                 #val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, 'youtube')
                 #if val_youtube_id and self.youtube_id_1_0 != val_youtube_id:
                     #self.youtube_id_1_0 = val_youtube_id
