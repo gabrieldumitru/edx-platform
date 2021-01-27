@@ -559,10 +559,12 @@ class VideoBlock(
                 #val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, 'youtube')
                 #if val_youtube_id and self.youtube_id_1_0 != val_youtube_id:
                     #self.youtube_id_1_0 = val_youtube_id
-                video_info = edxval_api.get_video_info(self.edx_video_id)
-                added_url = video_info['encoded_videos'][0]['url']
-                if added_url and self.html5_sources[0] != added_url:
-                    self.html5_sources[0] = added_url
+                
+                # Not bad but not useful either
+                #video_info = edxval_api.get_video_info(self.edx_video_id)
+                #added_url = video_info['encoded_videos'][0]['url']
+                #if added_url and self.html5_sources[0] != added_url:
+                #    self.html5_sources[0] = added_url
             
             manage_video_subtitles_save(
                 self,
