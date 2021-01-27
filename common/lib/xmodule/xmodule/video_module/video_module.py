@@ -563,7 +563,7 @@ class VideoBlock(
                 added_url = video_info['encoded_videos'][0]['url']
                 if added_url and self.html5_sources[0] != added_url:
                     self.html5_sources[0] = added_url
-
+            
             manage_video_subtitles_save(
                 self,
                 user,
@@ -935,6 +935,7 @@ class VideoBlock(
             'display_name': display_name,
             'video_url': video_url,
             'edx_video_id': video_id,
+            'html5_sources': video_url
         }
 
         _context.update({'transcripts_basic_tab_metadata': metadata})
