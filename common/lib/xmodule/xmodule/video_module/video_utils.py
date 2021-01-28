@@ -5,8 +5,12 @@ Module contains utils specific for video_module but not for transcripts.
 
 
 import logging
-import time
 from collections import OrderedDict
+
+import math
+import time
+from jose import jwt
+import requests
 
 import six
 from django.conf import settings
