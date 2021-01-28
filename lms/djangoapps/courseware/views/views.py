@@ -257,6 +257,39 @@ def courses(request):
         else:
             courses_list = sort_by_announcement(courses_list)
 
+    # Add MS Learn courses to course overviews 
+    try:
+        res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
+    except Exception as ex:
+        log.exception(
+            u'Error MSLearn request: %s',
+            text_type(ex),
+            )
+            
+    res_json = res.json()
+    modules = res_json.get('modules')
+    log.info(u'Views: MSLearn modules count: %d', len(modules))
+    learning_paths = res_json.get('learningPaths')
+    log.error(u'Views: MSLearn learning paths count: %d', len(learning_paths))
+
+    for module in modules:
+        # Create course overview based on module 
+        course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
+        # Append it to course_overviews
+        courses_list.append(course_overview)
+        # Save this course_overview to db
+        # course_overview.save()
+        # log.error(pformat(course_overview))
+
+    for learning_path in learning_paths:
+        # Create course overview based on learning_path 
+        course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
+        # Append it to course_overviews
+        courses_list.append(course_overview)
+        # Save this course_overview to db
+        # course_overview.save()
+        # log.error(pformat(course_overview))
+
     # Add marketable programs to the context.
     programs_list = get_programs_with_type(request.site, include_hidden=False)
 

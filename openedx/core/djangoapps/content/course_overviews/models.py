@@ -637,43 +637,6 @@ class CourseOverview(TimeStampedModel):
                 filtering by organization.
             filter_ (dict): Optional parameter that allows custom filtering.
         """
-        # Add MS Learn courses to course overviews 
-        try:
-            res = requests.get('https://docs.microsoft.com/api/learn/catalog/')
-        except Exception as ex:
-            log.exception(
-                u'Error MSLearn request: %s',
-                text_type(ex),
-                )
-                
-        res_json = res.json()
-        
-        modules = res_json.get('modules')
-        # log.info(u'MSLearn modules count: %d', len(modules))
-        learning_paths = res_json.get('learningPaths')
-        # log.error(u'MSLearn learning paths count: %d', len(learning_paths))
-
-        # mslearn_courses = []
-
-        for module in modules:
-            # Create course overview based on module 
-            course_overview = CourseOverview(module["title"], module["summary"], module["icon_url"], module["url"])
-            # Save this course_overview to db
-            course_overview.save()
-            log.error(pformat(course_overview))
-            # Append it to course_overviews
-            # mslearn_courses.append(course_overview)
-
-        for learning_path in learning_paths:
-            # Create course overview based on learning_path 
-            course_overview = CourseOverview(learning_path["title"], learning_path["summary"], learning_path["icon_url"], learning_path["url"])
-            # Save this course_overview to db
-            course_overview.save()
-            log.error(pformat(course_overview))
-            # Append it to course_overviews
-            # mslearn_courses.append(course_overview)
-
-
         # Note: If a newly created course is not returned in this QueryList,
         # make sure the "publish" signal was emitted when the course was
         # created. For tests using CourseFactory, use emit_signals=True.
