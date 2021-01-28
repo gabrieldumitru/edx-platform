@@ -131,14 +131,14 @@ class CourseOverview(TimeStampedModel):
 
     history = HistoricalRecords()
 
-    #def __init__(self, title, summary, icon_url, url):
-    #    self.lowest_passing_grade = None
-    #    self.display_name = title
-    #    self.max_student_enrollments_allowed = 999
-    #    self.short_description = summary
-    #    self.course_image_url = icon_url
-    #    self.catalog_visibility = 'both'
-    #    self.language = 'en'
+    def __init__(self, title, summary, icon_url, url):
+       self.lowest_passing_grade = None
+       self.display_name = title
+       self.max_student_enrollments_allowed = 999
+       self.short_description = summary
+       self.course_image_url = icon_url
+       self.catalog_visibility = 'both'
+       self.language = 'en'
 
     @classmethod
     def _create_or_update(cls, course):
