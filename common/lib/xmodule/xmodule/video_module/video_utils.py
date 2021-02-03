@@ -64,7 +64,7 @@ def rewrite_video_url(video_media_id, original_video_url):
         API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
         media_id = video_media_id
         path = "/v2/media/{media_id}".format(media_id=media_id)
-        exp = math.ceil((time.time() + 300) / 300) * 300
+        exp = math.ceil((time.time() + 3600) / 300) * 300
 
         params = {}
         params["resource"] = path
