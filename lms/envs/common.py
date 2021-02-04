@@ -3916,3 +3916,6 @@ GITHUB_REPO_ROOT = '/edx/var/edxapp/data'
 
 ##################### SUPPORT URL ############################
 SUPPORT_HOW_TO_UNENROLL_LINK = ''
+
+##################### JWPLAYER SETTINGS ############################
+JWPLAYER_API_KEY = 'aJbwuVmfGLMnyci6gGo5QlOI'

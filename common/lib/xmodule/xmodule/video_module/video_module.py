@@ -558,12 +558,11 @@ class VideoBlock(
                 #val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, 'youtube')
                 #if val_youtube_id and self.youtube_id_1_0 != val_youtube_id:
                     #self.youtube_id_1_0 = val_youtube_id
-                
-                # Not bad but not useful either
-                #video_info = edxval_api.get_video_info(self.edx_video_id)
-                #added_url = video_info['encoded_videos'][0]['url']
-                #if added_url and self.html5_sources[0] != added_url:
-                #    self.html5_sources[0] = added_url
+
+            if self.edx_video_id and edxval_api:    
+                video_info = edxval_api.get_video_info(self.edx_video_id)
+                added_url = video_info['encoded_videos'][0]['url']
+                self.html5_sources[0] = added_url
             
             manage_video_subtitles_save(
                 self,
@@ -809,7 +808,7 @@ class VideoBlock(
                 host (str): url host
             """
 
-            API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
+            jwplayer_secret = settings.JWPLAYER_API_KEY
             media_id = jwplayer_media_id
             path = "/v2/media/{media_id}".format(media_id=media_id)
             exp = math.ceil((time.time() + 3600) / 300) * 300
@@ -820,7 +819,7 @@ class VideoBlock(
 
             # Generate token
             # note that all parameters must be included here
-            token = jwt.encode(params, API_SECRET, algorithm="HS256")
+            token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
             url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
 
             return url
