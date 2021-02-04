@@ -512,6 +512,73 @@ class VideoBlock(
             )
         return validation
 
+    def create_jwplayer_url(self, jwplayer_media_id):
+        """
+
+        Args:
+            jwplayer_media_id: The ID of the video to create a link for 
+        Returns:
+            A full jwplayer url to the video whose ID is passed in
+        """
+        def jwt_signed_url(host):
+            """
+            Generate url with signature
+
+            Args:
+                path (str): url path
+                host (str): url host
+            """
+
+            jwplayer_secret = settings.JWPLAYER_API_KEY
+            media_id = jwplayer_media_id
+            path = "/v2/media/{media_id}".format(media_id=media_id)
+            exp = math.ceil((time.time() + 3600) / 300) * 300
+
+            params = {}
+            params["resource"] = path
+            params["exp"] = exp
+
+            # Generate token
+            # note that all parameters must be included here
+            token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
+            url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
+
+            return url
+
+        if jwplayer_media_id:
+            host="https://content.jwplatform.com"
+
+            url = jwt_signed_url(host)
+            log.error('Token signed url created is: %s', url)
+            r = requests.get(url)
+            jsonData = r.json()
+            log.error('JsonData : %s', jsonData)
+
+            urlToReturn = ''
+            log.error('UrlToReturn initial: %s', urlToReturn)
+            
+            if (r.status_code != 200):
+                return urlToReturn
+
+            sourcesArray = jsonData['playlist'][0]['sources']
+
+            for i in sourcesArray:
+                if 'width' in i.keys():
+                    if i['width']==480:
+                        urlToReturn = i['file']
+                    elif i['width']==640:
+                        urlToReturn = i['file']
+                    elif i['width']==1280:
+                        urlToReturn = i['file']
+                    elif i['width']==1920:
+                        urlToReturn = i['file']
+
+            log.error('Returned url: %s', urlToReturn)
+
+            return urlToReturn
+        else:
+            return u''
+
     def editor_saved(self, user, old_metadata, old_content):
         """
         Used to update video values during `self`:save method from CMS.
@@ -560,8 +627,7 @@ class VideoBlock(
                     #self.youtube_id_1_0 = val_youtube_id
 
             if self.edx_video_id and edxval_api:    
-                video_info = edxval_api.get_video_info(self.edx_video_id)
-                added_url = video_info['encoded_videos'][0]['url']
+                added_url = self.create_jwplayer_url(self.edx_video_id)
                 self.html5_sources[0] = added_url
             
             manage_video_subtitles_save(
@@ -791,73 +857,6 @@ class VideoBlock(
 
         return xml
 
-    def create_youtube_url(self, jwplayer_media_id):
-        """
-
-        Args:
-            jwplayer_media_id: The ID of the video to create a link for 
-        Returns:
-            A full jwplayer url to the video whose ID is passed in
-        """
-        def jwt_signed_url(host):
-            """
-            Generate url with signature
-
-            Args:
-                path (str): url path
-                host (str): url host
-            """
-
-            jwplayer_secret = settings.JWPLAYER_API_KEY
-            media_id = jwplayer_media_id
-            path = "/v2/media/{media_id}".format(media_id=media_id)
-            exp = math.ceil((time.time() + 3600) / 300) * 300
-
-            params = {}
-            params["resource"] = path
-            params["exp"] = exp
-
-            # Generate token
-            # note that all parameters must be included here
-            token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
-            url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
-
-            return url
-
-        if jwplayer_media_id:
-            host="https://content.jwplatform.com"
-
-            url = jwt_signed_url(host)
-            log.error('Token signed url created is: %s', url)
-            r = requests.get(url)
-            jsonData = r.json()
-            log.error('JsonData : %s', jsonData)
-
-            urlToReturn = ''
-            log.error('UrlToReturn initial: %s', urlToReturn)
-            
-            if (r.status_code != 200):
-                return urlToReturn
-
-            sourcesArray = jsonData['playlist'][0]['sources']
-
-            for i in sourcesArray:
-                if 'width' in i.keys():
-                    if i['width']==480:
-                        urlToReturn = i['file']
-                    elif i['width']==640:
-                        urlToReturn = i['file']
-                    elif i['width']==1280:
-                        urlToReturn = i['file']
-                    elif i['width']==1920:
-                        urlToReturn = i['file']
-
-            log.error('Returned url: %s', urlToReturn)
-
-            return urlToReturn
-        else:
-            return u''
-
     def get_context(self):
         """
         Extend context by data for transcript basic tab.
@@ -881,7 +880,7 @@ class VideoBlock(
             #    val_youtube_id = edxval_api.get_url_for_profile(self.edx_video_id, "youtube")
             #    if val_youtube_id:
             #        video_id = val_youtube_id
-            return self.create_youtube_url(video_id['value'])
+            return self.create_jwplayer_url(video_id['value'])
 
         #video_generated_url = self.create_youtube_url(video_id['value'])
 
@@ -902,7 +901,7 @@ class VideoBlock(
             'default_value': [get_jwplayer_video_link(video_id)]
         })
             
-        source_url = self.create_youtube_url(video_id['value'])
+        source_url = self.create_jwplayer_url(video_id['value'])
         # First try a lookup in VAL. If any video encoding is found given the video id then
         # override the source_url with it.
         #if self.edx_video_id and edxval_api:
@@ -1210,7 +1209,7 @@ class VideoBlock(
             # We are including a fallback URL for older versions of the mobile app that don't handle Youtube urls
             if self.youtube_id_1_0:
                 encoded_videos["youtube"] = {
-                    "url": self.create_youtube_url(self.youtube_id_1_0),
+                    "url": self.create_jwplayer_url(self.youtube_id_1_0),
                     "file_size": 0,  # File size is not relevant for external link
                 }
 
