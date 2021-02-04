@@ -528,7 +528,7 @@ class VideoBlock(
                 path (str): url path
                 host (str): url host
             """
-
+            settings_service = self.runtime.service(self, 'settings')
             jwplayer_secret = settings.JWPLAYER_API_KEY
             media_id = jwplayer_media_id
             path = "/v2/media/{media_id}".format(media_id=media_id)
