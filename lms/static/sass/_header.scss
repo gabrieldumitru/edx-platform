@@ -88,7 +88,7 @@
     by the desktop styling
   */
   // Desktop styling
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(xl) {
     .nav-links {
       .nav-item {
         margin: 0 $baseline;
@@ -98,45 +98,43 @@
         }
       }
 
-      @include media-breakpoint-up(xl){
-        .main {
-          @include float(left);
-          @include margin($baseline, 0, 0, $baseline);
-  
-          .nav-item {
-            @include float(left);
-          }
-  
-          .nav-tab {
-            text-transform: none;
-            padding: 0;
-            cursor: pointer;
-            margin: 0;
-            
-            a {
-              display: none;
-            }
+      .main {
+        @include float(left);
+        @include margin($baseline, 0, 0, $baseline);
 
-            @include media-breakpoint-up(xl){
-              a {
-                color: theme-color("secondary");
-                padding: $baseline*0.35 $baseline*1.25 19px;
-                font-weight: $font-weight-normal;
-                display: inline-block;
-                margin-bottom: -1*$baseline/2;
-                border-bottom: 4px solid transparent;
+        .nav-item {
+          @include float(left);
+        }
+
+        .nav-tab {
+          text-transform: none;
+          padding: 0;
+          cursor: pointer;
+          margin: 0;
+          
+          a {
+            display: none;
+          }
+
+          @include media-breakpoint-up(xl){
+            a {
+              color: theme-color("secondary");
+              padding: $baseline*0.35 $baseline*1.25 19px;
+              font-weight: $font-weight-normal;
+              display: inline-block;
+              margin-bottom: -1*$baseline/2;
+              border-bottom: 4px solid transparent;
+              cursor: pointer;
+  
+              &.active,
+              &:hover {
+                border-bottom-style: solid;
+                border-bottom-color: theme-color("primary");
+              }
+  
+              &:hover {
                 cursor: pointer;
-    
-                &.active,
-                &:hover {
-                  border-bottom-style: solid;
-                  border-bottom-color: theme-color("primary");
-                }
-    
-                &:hover {
-                  cursor: pointer;
-                  border-bottom-color: theme-color("primary");
-                }
+                border-bottom-color: theme-color("primary");
               }
             }
           }
@@ -147,10 +145,6 @@
         @include float(right);
         @include margin($baseline*0.75, $baseline*2, 0, 0);
         display: none;
-
-        @include media-breakpoint-up(xl){
-          display: inline-block !important;
-        }
         
         // All navigation items
         .nav-item {
