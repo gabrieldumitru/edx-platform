@@ -577,7 +577,7 @@ class VideoBlock(
 
             return urlToReturn
         else:
-            retur   n u''
+            return u''
 
     def editor_saved(self, user, old_metadata, old_content):
         """
