@@ -580,17 +580,14 @@ class VideoBlock(
                     return urlToReturn
 
                 sourcesArray = jsonData['playlist'][0]['sources']
+                localSourcesArray = []
 
                 for i in sourcesArray:
                     if 'width' in i.keys():
-                        if i['width']==1920:
-                            urlToReturn = i['file']
-                        elif i['width']==1280:
-                            urlToReturn = i['file']
-                        elif i['width']==640:
-                            urlToReturn = i['file']
-                        elif i['width']==480:
-                            urlToReturn = i['file']
+                        localSourcesArray.append(i['width'], i['file'])
+
+                localSourcesArray.sort(reverse=True)
+                urlToReturn = localSourcesArray[0][1]
 
                 log.error('Returned url: %s', urlToReturn)
 
@@ -909,16 +906,14 @@ class VideoBlock(
 
             sourcesArray = jsonData['playlist'][0]['sources']
 
+            localSourcesArray = []
+
             for i in sourcesArray:
                 if 'width' in i.keys():
-                    if i['width']==1920:
-                        urlToReturn = i['file']
-                    elif i['width']==1280:
-                        urlToReturn = i['file']
-                    elif i['width']==640:
-                        urlToReturn = i['file']
-                    elif i['width']==480:
-                        urlToReturn = i['file']
+                    localSourcesArray.append(i['width'], i['file'])
+
+            localSourcesArray.sort(reverse=True)
+            urlToReturn = localSourcesArray[0][1]
 
             log.error('Returned url: %s', urlToReturn)
 
