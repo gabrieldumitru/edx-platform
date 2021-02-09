@@ -512,72 +512,7 @@ class VideoBlock(
             )
         return validation
 
-    def create_jwplayer_url(self, jwplayer_media_id):
-        """
-
-        Args:
-            jwplayer_media_id: The ID of the video to create a link for 
-        Returns:
-            A full jwplayer url to the video whose ID is passed in
-        """
-        def jwt_signed_url(host):
-            """
-            Generate url with signature
-
-            Args:
-                path (str): url path
-                host (str): url host
-            """
-            settings_service = self.runtime.service(self, 'settings')
-            jwplayer_secret = settings.JWPLAYER_API_KEY
-            media_id = jwplayer_media_id
-            path = "/v2/media/{media_id}".format(media_id=media_id)
-            exp = math.ceil((time.time() + 3600) / 300) * 300
-
-            params = {}
-            params["resource"] = path
-            params["exp"] = exp
-
-            # Generate token
-            # note that all parameters must be included here
-            token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
-            url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
-
-            return url
-
-        if jwplayer_media_id:
-            host="https://content.jwplatform.com"
-
-            url = jwt_signed_url(host)
-            log.error('Token signed url created is: %s', url)
-            r = requests.get(url)
-            jsonData = r.json()
-            log.error('JsonData : %s', jsonData)
-
-            urlToReturn = ''
-            log.error('UrlToReturn initial: %s', urlToReturn)
-            
-            if (r.status_code != 200):
-                return urlToReturn
-
-            sourcesArray = jsonData['playlist'][0]['sources']
-
-            for i in sourcesArray:
-                if 'width' in i.keys():
-                    if i['width']==480:
-                        urlToReturn = i['file']
-                    elif i['width']==640:
-                        urlToReturn = i['file']
-                    elif i['width']==1280:
-                        urlToReturn = i['file']
-                    elif i['width']==1920:
-                        urlToReturn = i['file']
-
-            log.error('Returned url: %s', urlToReturn)
-
-            return urlToReturn
-        else:
-            return u''
+    
 
     def editor_saved(self, user, old_metadata, old_content):
         """
@@ -596,6 +531,73 @@ class VideoBlock(
         That means that html5_sources are always in list of fields that were changed (`metadata` param in save_item).
         This should be fixed too.
         """
+        def create_jwplayer_url(self, jwplayer_media_id):
+            """
+
+            Args:
+                jwplayer_media_id: The ID of the video to create a link for 
+            Returns:
+                A full jwplayer url to the video whose ID is passed in
+            """
+            def jwt_signed_url(host):
+                """
+                Generate url with signature
+
+                Args:
+                    path (str): url path
+                    host (str): url host
+                """
+                settings_service = self.runtime.service(self, 'settings')
+                jwplayer_secret = settings.JWPLAYER_API_KEY
+                media_id = jwplayer_media_id
+                path = "/v2/media/{media_id}".format(media_id=media_id)
+                exp = math.ceil((time.time() + 3600) / 300) * 300
+
+                params = {}
+                params["resource"] = path
+                params["exp"] = exp
+
+                # Generate token
+                # note that all parameters must be included here
+                token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
+                url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
+
+                return url
+
+            if jwplayer_media_id:
+                host="https://content.jwplatform.com"
+
+                url = jwt_signed_url(host)
+                log.error('Token signed url created is: %s', url)
+                r = requests.get(url)
+                jsonData = r.json()
+                log.error('JsonData : %s', jsonData)
+
+                urlToReturn = ''
+                log.error('UrlToReturn initial: %s', urlToReturn)
+                
+                if (r.status_code != 200):
+                    return urlToReturn
+
+                sourcesArray = jsonData['playlist'][0]['sources']
+
+                for i in sourcesArray:
+                    if 'width' in i.keys():
+                        if i['width']==480:
+                            urlToReturn = i['file']
+                        elif i['width']==640:
+                            urlToReturn = i['file']
+                        elif i['width']==1280:
+                            urlToReturn = i['file']
+                        elif i['width']==1920:
+                            urlToReturn = i['file']
+
+                log.error('Returned url: %s', urlToReturn)
+
+                return urlToReturn
+            else:
+                return u''
+
         metadata_was_changed_by_user = old_metadata != own_metadata(self)
 
         # There is an edge case when old_metadata and own_metadata are same and we are importing transcript from youtube
@@ -856,6 +858,73 @@ class VideoBlock(
         self.add_license_to_xml(xml)
 
         return xml
+        
+    def create_jwplayer_url(self, jwplayer_media_id):
+        """
+
+        Args:
+            jwplayer_media_id: The ID of the video to create a link for 
+        Returns:
+            A full jwplayer url to the video whose ID is passed in
+        """
+        def jwt_signed_url(host):
+            """
+            Generate url with signature
+
+            Args:
+                path (str): url path
+                host (str): url host
+            """
+            settings_service = self.runtime.service(self, 'settings')
+            jwplayer_secret = settings.JWPLAYER_API_KEY
+            media_id = jwplayer_media_id
+            path = "/v2/media/{media_id}".format(media_id=media_id)
+            exp = math.ceil((time.time() + 3600) / 300) * 300
+
+            params = {}
+            params["resource"] = path
+            params["exp"] = exp
+
+            # Generate token
+            # note that all parameters must be included here
+            token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
+            url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
+
+            return url
+
+        if jwplayer_media_id:
+            host="https://content.jwplatform.com"
+
+            url = jwt_signed_url(host)
+            log.error('Token signed url created is: %s', url)
+            r = requests.get(url)
+            jsonData = r.json()
+            log.error('JsonData : %s', jsonData)
+
+            urlToReturn = ''
+            log.error('UrlToReturn initial: %s', urlToReturn)
+            
+            if (r.status_code != 200):
+                return urlToReturn
+
+            sourcesArray = jsonData['playlist'][0]['sources']
+
+            for i in sourcesArray:
+                if 'width' in i.keys():
+                    if i['width']==480:
+                        urlToReturn = i['file']
+                    elif i['width']==640:
+                        urlToReturn = i['file']
+                    elif i['width']==1280:
+                        urlToReturn = i['file']
+                    elif i['width']==1920:
+                        urlToReturn = i['file']
+
+            log.error('Returned url: %s', urlToReturn)
+
+            return urlToReturn
+        else:
+            return u''
 
     def get_context(self):
         """

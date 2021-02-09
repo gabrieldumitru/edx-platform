@@ -71,10 +71,6 @@ FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
 
-
-##################### JWPLAYER SETTINGS ############################
-JWPLAYER_API_KEY = 'aJbwuVmfGLMnyci6gGo5QlOI'
-
 ########################## Derive Any Derived Settings  #######################
 
 derive_settings(__name__)
