@@ -61,7 +61,7 @@ def rewrite_video_url(video_media_id, original_video_url):
             host (str): url host
         """
 
-        API_SECRET = "aJbwuVmfGLMnyci6gGo5QlOI"
+        jwplayer_secret = settings.JWPLAYER_API_KEY
         media_id = video_media_id
         path = "/v2/media/{media_id}".format(media_id=media_id)
         exp = math.ceil((time.time() + 3600) / 300) * 300

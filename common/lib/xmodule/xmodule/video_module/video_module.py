@@ -548,7 +548,7 @@ class VideoBlock(
                     host (str): url host
                 """
                 settings_service = self.runtime.service(self, 'settings')
-                jwplayer_secret = "aJbwuVmfGLMnyci6gGo5QlOI" #settings.JWPLAYER_API_KEY
+                jwplayer_secret = settings.JWPLAYER_API_KEY
                 media_id = jwplayer_media_id
                 path = "/v2/media/{media_id}".format(media_id=media_id)
                 exp = math.ceil((time.time() + 3600) / 300) * 300
@@ -876,7 +876,7 @@ class VideoBlock(
                 host (str): url host
             """
             settings_service = self.runtime.service(self, 'settings')
-            jwplayer_secret = "aJbwuVmfGLMnyci6gGo5QlOI" #settings.JWPLAYER_API_KEY
+            jwplayer_secret = settings.JWPLAYER_API_KEY
             media_id = jwplayer_media_id
             path = "/v2/media/{media_id}".format(media_id=media_id)
             exp = math.ceil((time.time() + 3600) / 300) * 300
