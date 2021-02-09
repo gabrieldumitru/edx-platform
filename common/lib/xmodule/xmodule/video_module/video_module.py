@@ -583,13 +583,13 @@ class VideoBlock(
 
                 for i in sourcesArray:
                     if 'width' in i.keys():
-                        if i['width']==480:
-                            urlToReturn = i['file']
-                        elif i['width']==640:
+                        if i['width']==1920:
                             urlToReturn = i['file']
                         elif i['width']==1280:
                             urlToReturn = i['file']
-                        elif i['width']==1920:
+                        elif i['width']==640:
+                            urlToReturn = i['file']
+                        elif i['width']==480:
                             urlToReturn = i['file']
 
                 log.error('Returned url: %s', urlToReturn)
@@ -911,13 +911,13 @@ class VideoBlock(
 
             for i in sourcesArray:
                 if 'width' in i.keys():
-                    if i['width']==480:
-                        urlToReturn = i['file']
-                    elif i['width']==640:
+                    if i['width']==1920:
                         urlToReturn = i['file']
                     elif i['width']==1280:
                         urlToReturn = i['file']
-                    elif i['width']==1920:
+                    elif i['width']==640:
+                        urlToReturn = i['file']
+                    elif i['width']==480:
                         urlToReturn = i['file']
 
             log.error('Returned url: %s', urlToReturn)
