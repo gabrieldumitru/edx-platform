@@ -584,7 +584,7 @@ class VideoBlock(
 
                 for i in sourcesArray:
                     if 'width' in i.keys():
-                        localSourcesArray.append(i['width'], i['file'])
+                        localSourcesArray.append((i['width'], i['file']))
 
                 localSourcesArray.sort(reverse=True)
                 urlToReturn = localSourcesArray[0][1]
@@ -910,7 +910,7 @@ class VideoBlock(
 
             for i in sourcesArray:
                 if 'width' in i.keys():
-                    localSourcesArray.append(i['width'], i['file'])
+                    localSourcesArray.append((i['width'], i['file']))
 
             localSourcesArray.sort(reverse=True)
             urlToReturn = localSourcesArray[0][1]
