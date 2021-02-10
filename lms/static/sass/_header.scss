@@ -409,3 +409,16 @@
 
   padding: $baseline/2;
 }
+
+// media queries
+
+@media only screen and (max-width: 1234px) {
+  .devops-artisan {
+      display: none !important;
+  }
+}
+@media only screen and (max-width: 1050px) {
+  .ctrl-n {
+      display: none !important;
+  }
+}

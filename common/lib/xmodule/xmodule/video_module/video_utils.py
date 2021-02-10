@@ -72,7 +72,7 @@ def rewrite_video_url(video_media_id, original_video_url):
 
         # Generate token
         # note that all parameters must be included here
-        token = jwt.encode(params, API_SECRET, algorithm="HS256")
+        token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
         url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
 
         return url
