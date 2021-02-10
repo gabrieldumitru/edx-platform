@@ -154,6 +154,15 @@
           a {
             color: theme-color("dark");
             font-weight: $font-weight-normal;
+
+            .username {
+                max-width: 75px;
+                display: inline-block;
+                vertical-align: middle;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
           }
         }
 
@@ -412,12 +421,12 @@
 
 // media queries
 
-@media only screen and (max-width: 1234px) {
+@media only screen and (max-width: 1300px) {
   .devops-artisan {
       display: none !important;
   }
 }
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: 1125px) {
   .ctrl-n {
       display: none !important;
   }
