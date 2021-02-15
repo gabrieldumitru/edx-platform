@@ -7,6 +7,12 @@ Module contains utils specific for video_module but not for transcripts.
 import logging
 from collections import OrderedDict
 
+# Jwplayer integration imports
+import math
+import time
+from jose import jwt
+import requests
+
 import six
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -38,8 +44,85 @@ def create_youtube_string(module):
         if pair[1]
     ])
 
+def rewrite_video_url(video_media_id, original_video_url):
+    """
+    Returns a re-written video URL for a student
+    refreshing jwplayer expiration time if it has expired
+    :param video_media_id: The media id for the jwplayer video
+    :param original_video_url: The canonical source for this video
+    :return: The re-written URL with refreshed expiration time
+    """
+    def jwt_signed_url(host):
+        """
+        Generate url with signature
+        Args:
+            path (str): url path
+            host (str): url host
+        """
 
-def rewrite_video_url(cdn_base_url, original_video_url):
+        jwplayer_secret = settings.JWPLAYER_API_KEY
+        media_id = video_media_id
+        path = "/v2/media/{media_id}".format(media_id=media_id)
+        exp = math.ceil((time.time() + 3600) / 300) * 300
+
+        params = {}
+        params["resource"] = path
+        params["exp"] = exp
+
+        # Generate token
+        # note that all parameters must be included here
+        token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
+        url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
+
+        return url
+
+    if (not video_media_id) or (not original_video_url):
+        return None
+
+    parsed = urlparse(original_video_url)
+    
+    exp = int(parsed.query.split("&")[0].split("=")[1])
+    current_unix_time = int(time.time())
+    
+    if exp - current_unix_time > 0:
+        return None
+    else:
+        if video_media_id:
+            host="https://content.jwplatform.com"
+
+            url = jwt_signed_url(host)
+            log.error('Token signed url created is: %s', url)
+            r = requests.get(url)
+            jsonData = r.json()
+            log.error('JsonData : %s', jsonData)
+
+            urlToReturn = ''
+            log.error('UrlToReturn initial: %s', urlToReturn)
+            
+            if (r.status_code != 200):
+                return urlToReturn
+
+            sourcesArray = jsonData['playlist'][0]['sources']
+
+            localSourcesArray = []
+
+            for i in sourcesArray:
+                if 'width' in i.keys():
+                    localSourcesArray.append((i['width'], i['file']))
+
+            localSourcesArray.sort(reverse=True)
+            urlToReturn = localSourcesArray[0][1]
+
+            log.error('Returned url: %s', urlToReturn)
+
+            return urlToReturn
+        else:
+            return None
+
+    # Return None causing the caller to use the original URL.
+    return None
+
+def rewrite_video_cdn(cdn_base_url, original_video_url):
     """
     Returns a re-written video URL for cases when an alternate source
     has been configured and is selected using factors like

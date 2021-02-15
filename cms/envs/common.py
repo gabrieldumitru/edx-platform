@@ -2187,6 +2187,9 @@ LEARNER_PORTAL_URL_ROOT = 'https://learner-portal-localhost:18000'
 MICROSITE_ROOT_DIR = '/edx/app/edxapp/edx-microsite'
 MICROSITE_CONFIGURATION = {}
 
+############################ JWPLAYER #################################
+JWPLAYER_API_KEY = '2zrmc6lEZmyicLlEsS4XPtZL'
+
 ############################ JWT #################################
 JWT_ISSUER = 'http://127.0.0.1:8000/oauth2'
 DEFAULT_JWT_ISSUER = {
