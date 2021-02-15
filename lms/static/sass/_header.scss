@@ -84,7 +84,7 @@
     by the desktop styling
   */
   // Desktop styling
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     .nav-links {
       .nav-item {
         margin: 0 $baseline;
@@ -150,6 +150,15 @@
           a {
             color: theme-color("dark");
             font-weight: $font-weight-normal;
+
+            .username {
+              max-width: 75px;
+              display: inline-block;
+              vertical-align: middle;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+          }
           }
         }
 
@@ -404,4 +413,17 @@
   @include float(right);
 
   padding: $baseline/2;
+}
+
+// media queries
+
+@media only screen and (max-width: 1300px) {
+  .devops-artisan {
+      display: none !important;
+  }
+}
+@media only screen and (max-width: 1125px) {
+  .ctrl-n {
+      display: none !important;
+  }
 }
