@@ -17,9 +17,8 @@ Examples of html5 videos for manual testing:
 import copy
 import json
 import logging
-
-# JWPlayer integration imports
 import hashlib
+
 import math
 import time
 import urllib.parse
@@ -302,7 +301,7 @@ class VideoBlock(
                     new_url = rewrite_video_url(self.edx_video_id, source_url)
                     if new_url:
                         sources[index] = new_url
-
+                
                 # get video duration
                 video_data = edxval_api.get_video_info(self.edx_video_id.strip())
                 video_duration = video_data.get('duration')
@@ -318,16 +317,18 @@ class VideoBlock(
         # 'CN' is China ISO 3166-1 country code.
         # Video caching is disabled for Studio. User_location is always None in Studio.
         # CountryMiddleware disabled for Studio.
+        #if getattr(self, 'video_speed_optimizations', True) and cdn_url:
+        #    branding_info = BrandingInfoConfig.get_config().get(self.system.user_location)
 
         # If there was no edx_video_id, or if there was no download specified
         # for it, we fall back on whatever we find in the VideoBlock.
-        if not download_video_link and self.download_video:
-            if self.html5_sources:
-                download_video_link = self.html5_sources[0]
+        #if not download_video_link and self.download_video:
+        #    if self.html5_sources:
+        #        download_video_link = self.html5_sources[0]
 
             # don't give the option to download HLS video urls
-            if download_video_link and download_video_link.endswith('.m3u8'):
-                download_video_link = None
+        #    if download_video_link and download_video_link.endswith('.m3u8'):
+        download_video_link = None
 
         transcripts = self.get_transcripts_info()
         track_url, transcript_language, sorted_languages = self.get_transcripts_for_student(transcripts=transcripts)
@@ -480,6 +481,8 @@ class VideoBlock(
             )
         return validation
 
+    
+
     def editor_saved(self, user, old_metadata, old_content):
         """
         Used to update video values during `self`:save method from CMS.
@@ -499,14 +502,16 @@ class VideoBlock(
         """
         def create_jwplayer_url(self, jwplayer_media_id):
             """
+
             Args:
-                jwplayer_media_id: The ID of the video to create a link for
+                jwplayer_media_id: The ID of the video to create a link for 
             Returns:
                 A full jwplayer url to the video whose ID is passed in
             """
             def jwt_signed_url(host):
                 """
                 Generate url with signature
+
                 Args:
                     path (str): url path
                     host (str): url host
@@ -516,9 +521,11 @@ class VideoBlock(
                 media_id = jwplayer_media_id
                 path = "/v2/media/{media_id}".format(media_id=media_id)
                 exp = math.ceil((time.time() + 3600) / 300) * 300
+
                 params = {}
                 params["resource"] = path
                 params["exp"] = exp
+
                 # Generate token
                 # note that all parameters must be included here
                 token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
@@ -528,25 +535,31 @@ class VideoBlock(
 
             if jwplayer_media_id:
                 host="https://content.jwplatform.com"
+
                 url = jwt_signed_url(host)
                 log.error('Token signed url created is: %s', url)
                 r = requests.get(url)
                 jsonData = r.json()
                 log.error('JsonData : %s', jsonData)
+
                 urlToReturn = ''
                 log.error('UrlToReturn initial: %s', urlToReturn)
                 
                 if (r.status_code != 200):
                     return urlToReturn
+
                 sourcesArray = jsonData['playlist'][0]['sources']
                 localSourcesArray = []
+
                 for i in sourcesArray:
                     if 'width' in i.keys():
                         localSourcesArray.append((i['width'], i['file']))
+
                 localSourcesArray.sort(reverse=True)
                 urlToReturn = localSourcesArray[0][1]
+
                 log.error('Returned url: %s', urlToReturn)
-                
+
                 return urlToReturn
             else:
                 return u''
@@ -576,11 +589,11 @@ class VideoBlock(
             # an `edx_video_id` or its underlying YT val profile. Without this, override will only happen when a user
             # saves the video second time. This is because of the syncing of basic and advanced video settings which
             # also syncs val youtube id from basic tab's `Video Url` to advanced tab's `Youtube ID`.
-            
+
             if self.edx_video_id and edxval_api:    
                 added_url = self.create_jwplayer_url(self.edx_video_id)
                 self.html5_sources[0] = added_url
-
+            
             manage_video_subtitles_save(
                 self,
                 user,
@@ -807,9 +820,10 @@ class VideoBlock(
         self.add_license_to_xml(xml)
 
         return xml
-
+        
     def create_jwplayer_url(self, jwplayer_media_id):
         """
+
         Args:
             jwplayer_media_id: The ID of the video to create a link for 
         Returns:
@@ -818,6 +832,7 @@ class VideoBlock(
         def jwt_signed_url(host):
             """
             Generate url with signature
+
             Args:
                 path (str): url path
                 host (str): url host
@@ -888,9 +903,10 @@ class VideoBlock(
             """
             Returns the fully-qualified YouTube URL for the given video identifier
             """
-            # First try a lookup in VAL. If we have a YouTube entry there, it overrides the
-            # one passed in.
+
             return self.create_jwplayer_url(video_id['value'])
+
+        _ = self.runtime.service(self, "i18n").ugettext
 
         video_url.update({
             'help': _('The URL for your video. This can be a YouTube URL or a link to an .mp4, .ogg, or '
@@ -901,11 +917,8 @@ class VideoBlock(
             'value': [get_jwplayer_video_link(video_id)],
             'default_value': [get_jwplayer_video_link(video_id)]
         })
-        _ = self.runtime.service(self, "i18n").ugettext
-
+            
         source_url = self.create_jwplayer_url(video_id['value'])
-        # First try a lookup in VAL. If any video encoding is found given the video id then
-        # override the source_url with it.
 
         # Only add if html5 sources do not already contain source_url.
         if source_url and source_url not in video_url['value']:

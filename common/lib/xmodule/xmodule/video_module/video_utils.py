@@ -7,7 +7,6 @@ Module contains utils specific for video_module but not for transcripts.
 import logging
 from collections import OrderedDict
 
-# Jwplayer integration imports
 import math
 import time
 from jose import jwt
@@ -48,6 +47,7 @@ def rewrite_video_url(video_media_id, original_video_url):
     """
     Returns a re-written video URL for a student
     refreshing jwplayer expiration time if it has expired
+
     :param video_media_id: The media id for the jwplayer video
     :param original_video_url: The canonical source for this video
     :return: The re-written URL with refreshed expiration time
@@ -55,6 +55,7 @@ def rewrite_video_url(video_media_id, original_video_url):
     def jwt_signed_url(host):
         """
         Generate url with signature
+
         Args:
             path (str): url path
             host (str): url host
@@ -122,7 +123,7 @@ def rewrite_video_url(video_media_id, original_video_url):
     # Return None causing the caller to use the original URL.
     return None
 
-def rewrite_video_cdn(cdn_base_url, original_video_url):
+def rewrite_video_url_cdn(cdn_base_url, original_video_url):
     """
     Returns a re-written video URL for cases when an alternate source
     has been configured and is selected using factors like
