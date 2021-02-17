@@ -523,7 +523,9 @@ class VideoBlock(
                 # note that all parameters must be included here
                 token = jwt.encode(params, jwplayer_secret, algorithm="HS256")
                 url = "{host}{path}?token={token}".format(host=host, path=path, token=token)
+
                 return url
+
             if jwplayer_media_id:
                 host="https://content.jwplatform.com"
                 url = jwt_signed_url(host)
@@ -544,6 +546,7 @@ class VideoBlock(
                 localSourcesArray.sort(reverse=True)
                 urlToReturn = localSourcesArray[0][1]
                 log.error('Returned url: %s', urlToReturn)
+                
                 return urlToReturn
             else:
                 return u''
@@ -805,7 +808,7 @@ class VideoBlock(
 
         return xml
 
-   def create_jwplayer_url(self, jwplayer_media_id):
+    def create_jwplayer_url(self, jwplayer_media_id):
         """
         Args:
             jwplayer_media_id: The ID of the video to create a link for 
