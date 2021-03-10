@@ -56,7 +56,7 @@ from student import views as student_views
 from util import views as util_views
 
 # TemplateView for robot
-from django.views.generic import TemplateView
+#from django.views.generic import TemplateView
 
 RESET_COURSE_DEADLINES_NAME = 'reset_course_deadlines'
 RENDER_XBLOCK_NAME = 'render_xblock'
@@ -1008,6 +1008,6 @@ urlpatterns += [
     url(r'^api/course_home/', include('lms.djangoapps.course_home_api.urls')),
 ]
 
-urlpatterns += [
-    url(r'^robots\.txt$', TemplateView.as_view(template_name="myproject/robots.txt", content_type='text/plain')),
-]
+#urlpatterns += [
+#    url(r'^robots\.txt$', TemplateView.as_view(template_name="myproject/robots.txt", content_type='text/plain')),
+#]
