@@ -294,5 +294,5 @@ from openedx.core.djangoapps.plugins import constants as plugin_constants, plugi
 urlpatterns.extend(plugin_urls.get_patterns(plugin_constants.ProjectType.CMS))
 
 urlpatterns += [
-    url(r'^robots\.txt$', TemplateView.as_view(template_name="myproject/robots.txt", content_type='text/plain')),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
 ]
