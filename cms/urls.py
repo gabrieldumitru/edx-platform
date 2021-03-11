@@ -20,7 +20,7 @@ from openedx.core.djangoapps.password_policy.forms import PasswordPolicyAwareAdm
 from openedx.core.apidocs import api_info
 
 # Import TemplateView for robots.txt
-#from django.views.generic import TemplateView
+from django.views.generic import TemplateView
 
 django_autodiscover()
 admin.site.site_header = _('Studio Administration')
@@ -293,6 +293,6 @@ if 'openedx.testing.coverage_context_listener' in settings.INSTALLED_APPS:
 from openedx.core.djangoapps.plugins import constants as plugin_constants, plugin_urls
 urlpatterns.extend(plugin_urls.get_patterns(plugin_constants.ProjectType.CMS))
 
-#urlpatterns += [
-#    url(r'^robots\.txt$', TemplateView.as_view(template_name="myproject/robots.txt", content_type='text/plain')),
-#]
+urlpatterns += [
+    url(r'^robots\.txt$', TemplateView.as_view(template_name="myproject/robots.txt", content_type='text/plain')),
+]
