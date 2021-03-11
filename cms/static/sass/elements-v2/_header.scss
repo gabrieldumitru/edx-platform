@@ -30,6 +30,7 @@
 
   .wrapper-l {
     @include span(7);
+    margin-top:25px;
   }
 
   .wrapper-r {
@@ -112,7 +113,9 @@
       display: block;
 
       .brand-image {
-        max-height: ($baseline*2);
+        max-height: ($baseline*4);
+        max-width: 210px;
+        margin-top: 15px;
         display: block;
       }
     }
@@ -160,6 +163,7 @@
 .is-signedin {
   .wrapper-l {
     width: flex-grid(8, 12);
+    margin-top:25px;
   }
 
   .wrapper-r {

@@ -14,9 +14,9 @@ from openedx.core.djangolib.markup import HTML, Text
   <footer class="primary" role="contentinfo">
 
     <div class="footer-content-primary">
-      <div class="colophon">
+      <!--<div class="colophon">
         <p>&copy; ${datetime.now(pytz.timezone(settings.TIME_ZONE)).year} <a data-rel="edx.org" href="${marketing_link('ROOT')}" rel="external">${settings.PLATFORM_NAME}</a>.</p>
-      </div>
+      </div> -->
 
         <nav class="nav-peripheral" aria-label="${_("Policies")}">
           <ol>
@@ -35,15 +35,44 @@ from openedx.core.djangolib.markup import HTML, Text
                 <a data-rel="edx.org" href="${reverse('accessibility')}">${_("Accessibility Accommodation Request")}</a>
               </li>
             %endif
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a data-rel="edx.org" id="lms-link" href="${settings.LMS_ROOT_URL}">${_("LMS")}</a>
-            </li>
+            </li> -->
           </ol>
         </nav>
     </div>
 
     <div class="footer-content-secondary" aria-label="${_("Legal")}">
       <div class="footer-about-copyright">
+        
+        <p style="width: 100%">
+                        Titlu proiect: TechTalent Growth - POCU/464/3/12/128239
+                        <br>
+                        Proiect cofinanțat din Fondul Social European  prin Programul Operațional
+                        <br>
+                        Capital Uman 2014-2020      
+        </p>
+        <p style="width: 100%">
+                        Conținutul acestui material nu reprezintă în mod obligatoriu poziția oficială a
+                        <br>
+                        Uniunii Europene sau a Guvernului României
+        </p>
+        <p style="width: 100%">
+          <br>
+          Pentru informații detaliate despre celelate programe cofinanțate de Uniunea
+          <br>
+          Europeană, vă invităm să vizitați 
+          <a href="http://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro</a>
+          <br>
+          <br>
+          Created by: EQUATORIAL GAMING SA
+          <br>
+          <script type="text/javascript">document.write( new Date().getFullYear() );</script>
+        </p>
+          
+    </div>
+    
+      <!-- <div class="footer-about-copyright">
         ## Site operators: Please do not remove this paragraph! This attributes back to edX and makes your acknowledgement of edX's trademarks clear.
         <p>
           ## Translators: 'edX' and 'Open edX' are trademarks of 'edX Inc.'. Please do not translate any of these trademarks and company names.
@@ -52,14 +81,13 @@ from openedx.core.djangolib.markup import HTML, Text
             link_end=HTML(u"</a>")
           )}
         </p>
-      </div>
+      </div> -->
 
-      <div class="footer-about-openedx">
+     <!-- <div class="footer-about-openedx">
         <a href="http://open.edx.org" title="${_("Powered by Open edX")}">
           <img alt="${_("Powered by Open edX")}" src="https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png">
         </a>
-      </div>
+      </div>-->
     </div>
   </footer>
 </div>
-

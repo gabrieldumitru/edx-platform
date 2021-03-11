@@ -32,7 +32,7 @@
 
   .wrapper-l {
     @include float(left);
-
+    margin-top:25px;
     width: flex-grid(7, 12);
   }
 
@@ -253,6 +253,7 @@
 .is-signedin {
   .wrapper-l {
     width: flex-grid(8, 12);
+    margin-top:25px;
   }
 
   .wrapper-r {
@@ -274,11 +275,12 @@
 .is-signedin.course {
   .wrapper-header {
     .wrapper-l {
-      width: flex-grid(9, 12);
+      width: flex-grid(7, 12);
+      margin-top:25px;
     }
 
     .wrapper-r {
-      width: flex-grid(3, 12);
+      width: flex-grid(5, 12);
     }
 
     .branding {
@@ -304,6 +306,7 @@
   .wrapper-header {
     .wrapper-l {
       width: flex-grid(2, 12);
+      margin-top:25px;
     }
 
     .wrapper-r {

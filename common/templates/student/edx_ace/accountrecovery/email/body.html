@@ -34,7 +34,7 @@
                 {% trans "If you didn't request this change, you can disregard this email - we have not yet reset your password." as tmsg %}{{ tmsg | force_escape }}
                 <br />
             </p>
-
+            
             {% filter force_escape %}
                 {% blocktrans asvar course_cta_text %}Create Password{% endblocktrans %}
             {% endfilter %}
