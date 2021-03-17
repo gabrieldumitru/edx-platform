@@ -1,66 +1,71 @@
 ## mako
-<%page expression_filter="h" />
-<%! from django.utils.translation import ugettext as _ from django.urls import reverse from datetime import datetime
-	from django.conf import settings import pytz from cms.djangoapps.contentstore.config.waffle import waffle,
-	ENABLE_ACCESSIBILITY_POLICY_PAGE from openedx.core.djangolib.markup import HTML, Text %>
+<%page expression_filter="h"/>
+<%!
+from django.utils.translation import ugettext as _
+from django.urls import reverse
+from datetime import datetime
+from django.conf import settings
+import pytz
+from cms.djangoapps.contentstore.config.waffle import waffle, ENABLE_ACCESSIBILITY_POLICY_PAGE
+from openedx.core.djangolib.markup import HTML, Text
+%>
+<div class="wrapper-footer wrapper">
+	<div class="container-footer-custom">
+		<footer>
+			<div class="copy-right">
+				<p style="width: 100%; text-align: center;">
+					Proiect cofinanțat din Fondul Social European prin Programul Operațional Capital Uman 2014-2020
+					<br>
+					<br>
+					Pentru informații detaliate despre celelate programe cofinanțate de Uniunea Europeană, vă
+					invităm să vizitați <a href="https://www.fonduri-ue.ro">www.fonduri-ue.ro</a>
+					<br>
+				</p>
+			</div>
 
-	<div class="wrapper-footer wrapper">
-		<div class="container-footer-custom">
-			<footer>
-				<div class="copy-right">
-					<p style="width: 100%; text-align: center;">
-						Proiect cofinanțat din Fondul Social European prin Programul Operațional Capital Uman 2014-2020
-						<br>
-						<br>
-						Pentru informații detaliate despre celelate programe cofinanțate de Uniunea Europeană, vă
-						invităm să vizitați <a href="https://www.fonduri-ue.ro">www.fonduri-ue.ro</a>
-						<br>
-					</p>
-				</div>
+			<div class="custom-wrapper">
+				<div class="custom-col-3">
+					<div class="site-info">
+						<a href="https://anis.ro/" title="ANIS" itemprop="url"><img class="img-responsive"
+								srcset="https://anis.ro/wp-content/uploads/logo-footer@2x.png"
+								src="https://anis.ro/wp-content/uploads/logo-footer.png" alt="" /></a>
+					</div> <!-- end site-info -->
+				</div> <!-- end custom-col-3 - first-col -->
 
-				<div class="custom-wrapper">
-					<div class="custom-col-3">
-						<div class="site-info">
-							<a href="https://anis.ro/" title="ANIS" itemprop="url"><img class="img-responsive"
-									srcset="https://anis.ro/wp-content/uploads/logo-footer@2x.png"
-									src="https://anis.ro/wp-content/uploads/logo-footer.png" alt="" /></a>
-						</div> <!-- end site-info -->
-					</div> <!-- end custom-col-3 - first-col -->
+				<div class="custom-col-3">
+					<div class="contact-info">
+						<ul>
+							<li>Nicolae Filipescu 39-41 Etaj 4, Sector 2, București Cod Postal: 020961</li>
+							<li>+40 21 312 13 97</li>
+						</ul>
+					</div> <!-- end contact-info -->
+				</div> <!-- end custom-col-3 - second-col -->
 
-					<div class="custom-col-3">
-						<div class="contact-info">
-							<ul>
-								<li>Nicolae Filipescu 39-41 Etaj 4, Sector 2, București Cod Postal: 020961</li>
-								<li>+40 21 312 13 97</li>
-							</ul>
-						</div> <!-- end contact-info -->
-					</div> <!-- end custom-col-3 - second-col -->
+				<div class="custom-col-4">
+					<div class="membru-info">
+						<h5>membru:</h5>
+						<ul>
+							<li><img style="max-width: 90%;" class="img-responsive"
+									src="https://anis.ro/wp-content/themes/anis/img/digital-europe@2x.png" alt="">
+							</li>
+							<li><img style="max-width: 80%;" class="img-responsive"
+									src="https://anis.ro/wp-content/themes/anis/img/concordia@2x.png" alt=""></li>
+						</ul>
+					</div> <!-- end membru-info -->
+				</div> <!-- end custom-col-4 - third-col -->
 
-					<div class="custom-col-4">
-						<div class="membru-info">
-							<h5>membru:</h5>
-							<ul>
-								<li><img style="max-width: 90%;" class="img-responsive"
-										src="https://anis.ro/wp-content/themes/anis/img/digital-europe@2x.png" alt="">
-								</li>
-								<li><img style="max-width: 80%;" class="img-responsive"
-										src="https://anis.ro/wp-content/themes/anis/img/concordia@2x.png" alt=""></li>
-							</ul>
-						</div> <!-- end membru-info -->
-					</div> <!-- end custom-col-4 - third-col -->
+				<div class="custom-col-2">
+					<div class="social-info">
+						<ul>
+							<li><a href="https://www.linkedin.com/company/anis-romania"><i class="fa fa-linkedin"
+										aria-hidden="true"></i></a></li>
+							<li><a href="https://www.facebook.com/anis.romania"><i class="fa fa-facebook"
+										aria-hidden="true"></i></a></li>
+						</ul>
+					</div>
+				</div> <!-- end custom-col-2 - fourth-col -->
+			</div> <!-- end custom wrapper -->
 
-					<div class="custom-col-2">
-						<div class="social-info">
-							<ul>
-								<li><a href="https://www.linkedin.com/company/anis-romania"><i class="fa fa-linkedin"
-											aria-hidden="true"></i></a></li>
-								<li><a href="https://www.facebook.com/anis.romania"><i class="fa fa-facebook"
-											aria-hidden="true"></i></a></li>
-							</ul>
-						</div>
-					</div> <!-- end custom-col-2 - fourth-col -->
-				</div> <!-- end custom wrapper -->
-
-			</footer>
-		</div>
+		</footer>
 	</div>
+</div>
