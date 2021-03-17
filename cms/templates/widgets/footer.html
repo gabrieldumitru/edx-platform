@@ -27,8 +27,8 @@ from openedx.core.djangolib.markup import HTML, Text
 				<div class="custom-col-3">
 					<div class="site-info">
 						<a href="https://anis.ro/" title="ANIS" itemprop="url"><img class="img-responsive"
-								srcset="https://anis.ro/wp-content/uploads/logo-footer@2x.png"
-								src="https://anis.ro/wp-content/uploads/logo-footer.png" alt="" /></a>
+								srcset="${static.url('images/footer/logo-footer.png')}"
+								src="${static.url('images/footer/logo-footer.png')}" alt="" /></a>
 					</div> <!-- end site-info -->
 				</div> <!-- end custom-col-3 - first-col -->
 
@@ -46,10 +46,10 @@ from openedx.core.djangolib.markup import HTML, Text
 						<h5>membru:</h5>
 						<ul>
 							<li><img style="max-width: 90%;" class="img-responsive"
-									src="https://anis.ro/wp-content/themes/anis/img/digital-europe@2x.png" alt="">
+									src="${static.url('images/footer/digital-europe.png')}" alt="">
 							</li>
 							<li><img style="max-width: 80%;" class="img-responsive"
-									src="https://anis.ro/wp-content/themes/anis/img/concordia@2x.png" alt=""></li>
+									src="${static.url('images/footer/concordia.png')}" alt=""></li>
 						</ul>
 					</div> <!-- end membru-info -->
 				</div> <!-- end custom-col-4 - third-col -->
