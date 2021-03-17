@@ -9,85 +9,63 @@ import pytz
 from cms.djangoapps.contentstore.config.waffle import waffle, ENABLE_ACCESSIBILITY_POLICY_PAGE
 from openedx.core.djangolib.markup import HTML, Text
 %>
-
 <div class="wrapper-footer wrapper">
-  <footer class="primary" role="contentinfo">
+	<div class="container-footer-custom">
+		<footer>
+			<div class="copy-right">
+				<p style="width: 100%; text-align: center;">
+					Proiect cofinanțat din Fondul Social European prin Programul Operațional Capital Uman 2014-2020
+					<br>
+					<br>
+					Pentru informații detaliate despre celelate programe cofinanțate de Uniunea Europeană, vă
+					invităm să vizitați <a href="https://www.fonduri-ue.ro">www.fonduri-ue.ro</a>
+					<br>
+				</p>
+			</div>
 
-    <div class="footer-content-primary">
-      <!--<div class="colophon">
-        <p>&copy; ${datetime.now(pytz.timezone(settings.TIME_ZONE)).year} <a data-rel="edx.org" href="${marketing_link('ROOT')}" rel="external">${settings.PLATFORM_NAME}</a>.</p>
-      </div> -->
+			<div class="custom-wrapper">
+				<div class="custom-col-3">
+					<div class="site-info">
+						<a href="https://anis.ro/" title="ANIS" itemprop="url"><img class="img-responsive"
+								srcset="https://anis.ro/wp-content/uploads/logo-footer@2x.png"
+								src="https://anis.ro/wp-content/uploads/logo-footer.png" alt="" /></a>
+					</div> <!-- end site-info -->
+				</div> <!-- end custom-col-3 - first-col -->
 
-        <nav class="nav-peripheral" aria-label="${_("Policies")}">
-          <ol>
-            % if is_marketing_link_set('TOS'):
-              <li class="nav-item nav-peripheral-tos">
-                <a data-rel="edx.org" href="${marketing_link('TOS')}">${_("Terms of Service")}</a>
-              </li>
-            % endif
-            % if is_marketing_link_set('PRIVACY'):
-              <li class="nav-item nav-peripheral-pp">
-                <a data-rel="edx.org" href="${marketing_link('PRIVACY')}">${_("Privacy Policy")}</a>
-              </li>
-            % endif
-            % if waffle().is_enabled(ENABLE_ACCESSIBILITY_POLICY_PAGE):
-              <li class="nav-item nav-peripheral-aar">
-                <a data-rel="edx.org" href="${reverse('accessibility')}">${_("Accessibility Accommodation Request")}</a>
-              </li>
-            %endif
-            <!--<li class="nav-item">
-              <a data-rel="edx.org" id="lms-link" href="${settings.LMS_ROOT_URL}">${_("LMS")}</a>
-            </li> -->
-          </ol>
-        </nav>
-    </div>
+				<div class="custom-col-3">
+					<div class="contact-info">
+						<ul>
+							<li>Nicolae Filipescu 39-41 Etaj 4, Sector 2, București Cod Postal: 020961</li>
+							<li>+40 21 312 13 97</li>
+						</ul>
+					</div> <!-- end contact-info -->
+				</div> <!-- end custom-col-3 - second-col -->
 
-    <div class="footer-content-secondary" aria-label="${_("Legal")}">
-      <div class="footer-about-copyright">
-        
-        <p style="width: 100%">
-                        Titlu proiect: TechTalent Growth - POCU/464/3/12/128239
-                        <br>
-                        Proiect cofinanțat din Fondul Social European  prin Programul Operațional
-                        <br>
-                        Capital Uman 2014-2020      
-        </p>
-        <p style="width: 100%">
-                        Conținutul acestui material nu reprezintă în mod obligatoriu poziția oficială a
-                        <br>
-                        Uniunii Europene sau a Guvernului României
-        </p>
-        <p style="width: 100%">
-          <br>
-          Pentru informații detaliate despre celelate programe cofinanțate de Uniunea
-          <br>
-          Europeană, vă invităm să vizitați 
-          <a href="http://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro</a>
-          <br>
-          <br>
-          Created by: EQUATORIAL GAMING SA
-          <br>
-          <script type="text/javascript">document.write( new Date().getFullYear());</script>
-        </p>
-          
-    </div>
-    
-      <!-- <div class="footer-about-copyright">
-        ## Site operators: Please do not remove this paragraph! This attributes back to edX and makes your acknowledgement of edX's trademarks clear.
-        <p>
-          ## Translators: 'edX' and 'Open edX' are trademarks of 'edX Inc.'. Please do not translate any of these trademarks and company names.
-          ${Text(_("edX, Open edX, and the edX and Open edX logos are registered trademarks of {link_start}edX Inc.{link_end}")).format(
-            link_start=HTML(u"<a data-rel='edx.org' href='https://www.edx.org/'>"),
-            link_end=HTML(u"</a>")
-          )}
-        </p>
-      </div> -->
+				<div class="custom-col-4">
+					<div class="membru-info">
+						<h5>membru:</h5>
+						<ul>
+							<li><img style="max-width: 90%;" class="img-responsive"
+									src="https://anis.ro/wp-content/themes/anis/img/digital-europe@2x.png" alt="">
+							</li>
+							<li><img style="max-width: 80%;" class="img-responsive"
+									src="https://anis.ro/wp-content/themes/anis/img/concordia@2x.png" alt=""></li>
+						</ul>
+					</div> <!-- end membru-info -->
+				</div> <!-- end custom-col-4 - third-col -->
 
-     <!-- <div class="footer-about-openedx">
-        <a href="http://open.edx.org" title="${_("Powered by Open edX")}">
-          <img alt="${_("Powered by Open edX")}" src="https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png">
-        </a>
-      </div>-->
-    </div>
-  </footer>
+				<div class="custom-col-2">
+					<div class="social-info">
+						<ul>
+							<li><a href="https://www.linkedin.com/company/anis-romania"><i class="fa fa-linkedin"
+										aria-hidden="true"></i></a></li>
+							<li><a href="https://www.facebook.com/anis.romania"><i class="fa fa-facebook"
+										aria-hidden="true"></i></a></li>
+						</ul>
+					</div>
+				</div> <!-- end custom-col-2 - fourth-col -->
+			</div> <!-- end custom wrapper -->
+
+		</footer>
+	</div>
 </div>
