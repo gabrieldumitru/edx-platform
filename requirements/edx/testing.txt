@@ -15,6 +15,7 @@
 -e git+https://github.com/dementrock/pystache_custom.git@776973740bdaad83a3b029f96e415a7d1e8bec2f#egg=pystache_custom-dev  # via -r requirements/edx/base.txt
 -e git+https://github.com/edx/RateXBlock.git@2.0#egg=rate-xblock  # via -r requirements/edx/base.txt
 -e common/lib/safe_lxml  # via -r requirements/edx/base.txt
+-e git+https://github.com/technige/py2neo.git@py2neo-3.1.2#egg=py2neo==3.1.2  # via -r requirements/edx/github.in
 -e common/lib/sandbox-packages  # via -r requirements/edx/base.txt
 -e git+https://github.com/python-social-auth/social-app-django.git@c00d23c2b45c3317bd35b15ad1b959338689cef8#egg=social-auth-app-django  # via -r requirements/edx/base.txt
 -e common/lib/symmath  # via -r requirements/edx/base.txt
