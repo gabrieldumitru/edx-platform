@@ -1,0 +1,14 @@
+<%page expression_filter="h"/>
+<%! from django.utils.translation import ugettext as _ %>
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Calendar")}</%block>
+
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="container about">
+        <h1>
+            <%block name="pageheader">${page_header or _("Calendar")}</%block>
+        </h1>
+        <iframe src="https://bittnet-dev-fe.azurewebsites.net/ctrln-calendar?div=172650000&div=172650001&div=172650002&key=1" width="100%" height="800px" frameborder="0" scrolling="auto" title="Testiro6 the brother" style="position: relative;" allowfullscreen=""></iframe>
+    </section>
+</main>
