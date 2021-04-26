@@ -6,9 +6,13 @@
 
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="container about">
+        % if request.user.is_authenticated:
         <h1>
             <%block name="pageheader">${page_header or _("Meetups")}</%block>
         </h1>
         <iframe src="https://uxi.bittnet.ro/ctrln-calendar?div=172650001 " width="100%" height="800px" frameborder="0" scrolling="auto" title="Testiro6 the brother" style="position: relative;" allowfullscreen=""></iframe>
+        % else:
+        <script>window.location.href = "https://lms.bittnet.ro/login?next=/meetups";</script>
+        % endif
     </section>
 </main>
